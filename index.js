@@ -1,4 +1,7 @@
-const plantButton = document.getElementById('plantSearch')
+const plantButton = document.getElementById('navbarDropdownMenuLink')
+const searchInputDropdown = document.getElementById('search-input-dropdown');
+const dropdownOptions = document.querySelectorAll('.dropdown-item');
+const plantOptions = document.getElementById('plantOptions')
 let plantData 
 
 plantButton.addEventListener("click", function(e){
@@ -20,7 +23,40 @@ async function sendApiRequest1() {
 
 async function onLoad() {
     plantData = await sendApiRequest1()
+
+    // put this functionality in a loop to see all plantData (hint: forEach)
+    // note: might want to add some vertical overflow styling to the ul
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    li.appendChild(button);
+    const textnode = document.createTextNode(plantData[0].common_name);
+    button.setAttribute('class','dropdown-item')
+    button.appendChild(textnode);
+    plantOptions.appendChild(li)
+
     console.log(plantData)
 }
 
 onLoad()
+
+searchInputDropdown.addEventListener('input', () => {
+  const filter = searchInputDropdown.value.toLowerCase();
+  showOptions();
+  const valueExist = !!filter.length;
+
+  if (valueExist) {
+    dropdownOptions.forEach((el) => {
+      const elText = el.textContent.trim().toLowerCase();
+      const isIncluded = elText.includes(filter);
+      if (!isIncluded) {
+        el.style.display = 'none';
+      }
+    });
+  }
+});
+
+const showOptions = () => {
+  dropdownOptions.forEach((el) => {
+    el.style.display = 'flex';
+  })
+}
