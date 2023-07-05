@@ -1,3 +1,7 @@
 body {
     background-color: rgb(17, 57, 34);
   }
+  
+#backgroundImage {
+  width: auto;
+}
