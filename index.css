@@ -1,7 +1,11 @@
 #body {
-    background-color: rgb(17, 57, 34);
+  padding: 25px;
+  background-color: rgb(17, 57, 34);
+}
+
+#backgroundImage {
+    padding: 25px;
+    background-image: url(images/whiteWall.jpeg);
+    border-radius: 5px;
   }
   
-#backgroundImage {
-  width: auto;
-}
