@@ -1,24 +1,37 @@
-const plantButton = document.getElementById('navbarDropdownMenuLink')
+const plantButton = document.getElementById('navbarDropdownMenuLink');
 const searchInputDropdown = document.getElementById('search-input-dropdown');
 const dropdownOptions = document.querySelectorAll('.dropdown-item');
-const plantOptions = document.getElementById('plantOptions')
-let plantData 
+const plantOptions = document.getElementById('plantOptions');
+let plantData
 
 plantButton.addEventListener("click", function(e){
     // we would like to get the data of one plant
 
     console.log(plantData[29])
-})
+});
 
-async function sendApiRequest1() {
+
+    async function sendApiRequest1() { // might want to rename to say getPlantData because now not everyone is sending request anymore
+
     // can make these lets consts
     let API_KEY = 'sk-hhUC648f17aaee2f71312'
-    // we will want to loop, and fetch page=1 to page=100. We can store all the results plantData
-    let response = await fetch(`https://perenual.com/api/species-list?page=10&key=${API_KEY}`);
-    let data = await response.json();
+    let plants = [] 
+    let localArray = JSON.parse(localStorage.getItem("plants"));
 
-    return data.data
-};
+       if (localArray && localArray.length) {
+        plants = localArray
+       } else {
+          for(i=1; i<=2; i++) { // want this to be 100
+                let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
+                let data = await response.json();
+        
+                plants = plants.concat(data.data)
+            };
+       };
+
+    localStorage.setItem("plants", JSON.stringify(plants));
+    return plants;
+    };
 
 
 async function onLoad() {
@@ -35,9 +48,10 @@ async function onLoad() {
     plantOptions.appendChild(li)
 
     console.log(plantData)
-}
+};
 
-onLoad()
+
+onLoad();
 
 searchInputDropdown.addEventListener('input', () => {
   const filter = searchInputDropdown.value.toLowerCase();
@@ -59,4 +73,4 @@ const showOptions = () => {
   dropdownOptions.forEach((el) => {
     el.style.display = 'flex';
   })
-}
+};

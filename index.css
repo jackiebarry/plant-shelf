@@ -1,11 +1,36 @@
 #body {
   padding: 25px;
   background-color: rgb(17, 57, 34);
+  height: 100%;
 }
 
 #backgroundImage {
     padding: 25px;
-    background-image: url(images/whiteWall.jpeg);
-    border-radius: 5px;
+    background-image: url(images/Vector_20180904_012.jpg);
+    border-radius: 10px;
+    height: 100%;
   }
   
+.shelves {
+  padding: 1000px;
+}
+
+#plantButton {
+  padding: 25px;
+  font-family: "Brush Script MT", "Lucinda Console", "Courier New", 'Courier New', Courier, monospace;
+  font-size: 100px;
+}
+
+#searchDropdown {
+  padding: 50px;
+  font-size: 100px;
+  font-family: "Brush Script MT", "Lucinda Console", "Courier New", 'Courier New', Courier, monospace;
+}
+
+.primary-header {
+padding: 25px;
+font-family: "Brush Script MT", "Lucinda Console", "Courier New", 'Courier New', Courier, monospace;
+font-size: 1000%;
+color: black;
+text-align: center;
+}

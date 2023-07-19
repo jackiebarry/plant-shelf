@@ -15,63 +15,54 @@
 
 <body id="body">
     <div id="backgroundImage">
-       
     
-    <h1 class="primary-header">Plants!</h1>
+        <h1 class="primary-header">Plants!</h1>
 
-    <div id="plantButton">
-        <button id="plantSearch">
-            Give Me Plants
-        </button>
+        <div id="plantButton">
+            <button id="plantSearch">
+                Give Me Plants
+            </button>
+        </div>
+
+
+
+        <div id="searchDropdown">
+
+            <a
+                class="dropdown-toggle hidden-arrow btn btn-primary bg-warning"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+            >
+                Give Me Plants!
+            </a>
+            
+            <ul id="plantOptions" class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                    <div class="input-group mt-2 mx-2">
+                    <div class="form-outline w-auto">
+                        <input type="search" id="search-input-dropdown" class="form-control-dropdown" />
+                        <label class="form-label" for="search-input-dropdown">Search</label>
+                    </div>
+                    </div>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><button class="dropdown-item">Action</button></li>
+                <li><button class="dropdown-item">Another action</button></li>
+                <li><button class="dropdown-item">Something else here</button></li>
+            </ul>
+            
+        </div>
+
+        <div class="shelves" id="shelf1">
+            <img src="images/Screen Shot 2023-07-18 at 9.20.36 PM.png"/>
+        </div>
+
+
+        <script src="index.js"></script>
     </div>
-
-
-
-<div id="searchDropdown">
-
-
-
-
-    <a
-        class="dropdown-toggle hidden-arrow btn btn-primary"
-        href="#"
-        id="navbarDropdownMenuLink"
-        role="button"
-        data-mdb-toggle="dropdown"
-        aria-expanded="false"
-    >
-        Give Me Plants!
-    </a>
-    
-    <ul id="plantOptions" class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
-        <li>
-            <div class="input-group mt-2 mx-2">
-            <div class="form-outline w-auto">
-                <input type="search" id="search-input-dropdown" class="form-control-dropdown" />
-                <label class="form-label" for="search-input-dropdown">Search</label>
-            </div>
-            </div>
-        </li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><button class="dropdown-item">Action</button></li>
-        <li><button class="dropdown-item">Another action</button></li>
-        <li><button class="dropdown-item">Something else here</button></li>
-    </ul>
-
-
-
-    
-</div>
-
-
-
-
-    <div class="shelves" id="shelf1">
-        <img />
-    </div>
-
-    <script src="index.js"></script>
-</div>
 
 </body>
 
