@@ -5,13 +5,13 @@ const plantOptions = document.getElementById('plantOptions');
 let plantData
 
 plantButton.addEventListener("click", function(e){
-    // we would like to get the data of one plant
+    // we would like to get the data of one plant (whichever one is clicked on)
 
     console.log(plantData[29])
 });
 
 
-    async function sendApiRequest1() { // might want to rename to say getPlantData because now not everyone is sending request anymore
+    async function getPlantData() { // might want to rename to say getPlantData because now not everyone is sending request anymore
 
     // can make these lets consts
     let API_KEY = 'sk-hhUC648f17aaee2f71312'
@@ -35,19 +35,21 @@ plantButton.addEventListener("click", function(e){
 
 
 async function onLoad() {
-    plantData = await sendApiRequest1()
-
-    // put this functionality in a loop to see all plantData (hint: forEach)
+    plantData = await getPlantData()
+       let plants = JSON.parse(localStorage.getItem("plants")); 
+    // put this functionality in a loop to see all plantData (hint: forEach, or at least if using traditional for loop, use length of plantData)
     // note: might want to add some vertical overflow styling to the ul
-    const li = document.createElement("li");
-    const button = document.createElement("button");
-    li.appendChild(button);
-    const textnode = document.createTextNode(plantData[0].common_name);
-    button.setAttribute('class','dropdown-item')
-    button.appendChild(textnode);
-    plantOptions.appendChild(li)
+    plants.forEach(function() {
+        const li = document.createElement("li");
+        const button = document.createElement("button");
+        li.appendChild(button);
+        const textnode = document.createTextNode(plantData[1].common_name);
+        button.setAttribute('class','dropdown-item')
+        button.appendChild(textnode);
+        plantOptions.appendChild(li)
 
-    console.log(plantData)
+        console.log(plantData)
+})
 };
 
 
