@@ -11,8 +11,10 @@
     height: 100%;
   }
   
-.shelves {
-  padding: 1000px;
+.shelf {
+  padding: 1px;
+  padding-top: 50px;
+  width: 100%;
 }
 
 #plantButton {
@@ -30,7 +32,7 @@
 .primary-header {
 padding: 25px;
 font-family: "Brush Script MT", "Lucinda Console", "Courier New", 'Courier New', Courier, monospace;
-font-size: 1000%;
+font-size: 200%;
 color: black;
 text-align: center;
 }

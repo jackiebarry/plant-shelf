@@ -1,55 +1,61 @@
 const plantButton = document.getElementById('navbarDropdownMenuLink');
 const searchInputDropdown = document.getElementById('search-input-dropdown');
-const dropdownOptions = document.querySelectorAll('.dropdown-item');
 const plantOptions = document.getElementById('plantOptions');
-let plantData
+const imageLocation = document.querySelector(".shelves");
+let plantData = [];
+let dropdownOptions = [];
 
-plantButton.addEventListener("click", function(e){
-    // we would like to get the data of one plant (whichever one is clicked on)
+// thoughts: could make all functions consistently arrow functions
+// thoughts: could set up "prettier" in project, and specify for example yes to semicolons
+//           this can be set up to be automatic on save in VSCode
 
-    console.log(plantData[29])
-});
-
-
-    async function getPlantData() { // might want to rename to say getPlantData because now not everyone is sending request anymore
+async function getPlantData() {
 
     // can make these lets consts
     let API_KEY = 'sk-hhUC648f17aaee2f71312'
     let plants = [] 
     let localArray = JSON.parse(localStorage.getItem("plants"));
 
-       if (localArray && localArray.length) {
+        if (localArray && localArray.length) {
         plants = localArray
-       } else {
+        } else {
           for(i=1; i<=2; i++) { // want this to be 100
                 let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
                 let data = await response.json();
         
-                plants = plants.concat(data.data)
+                plants = plants.concat(data.data);
             };
-       };
-
+        };
     localStorage.setItem("plants", JSON.stringify(plants));
     return plants;
-    };
+};
 
+const addPlantImage = (event) => {
+    const buttonIndex = event.target.id;
+    const plantImage = plantData[buttonIndex].default_image.thumbnail;
+
+    console.log(plantImage);
+
+    // now: put the image on the shelves
+}
 
 async function onLoad() {
     plantData = await getPlantData()
-       let plants = JSON.parse(localStorage.getItem("plants")); 
-    // put this functionality in a loop to see all plantData (hint: forEach, or at least if using traditional for loop, use length of plantData)
+    console.log(plantData);
+
     // note: might want to add some vertical overflow styling to the ul
-    plants.forEach(function() {
+    plantData.forEach((plant, plantIndex) => {
         const li = document.createElement("li");
         const button = document.createElement("button");
         li.appendChild(button);
-        const textnode = document.createTextNode(plantData[1].common_name);
-        button.setAttribute('class','dropdown-item')
+        let textnode = document.createTextNode(plant.common_name);
+        button.setAttribute('class','dropdown-item');
+        button.setAttribute('id', plantIndex);
         button.appendChild(textnode);
-        plantOptions.appendChild(li)
-
-        console.log(plantData)
-})
+        button.addEventListener('click', addPlantImage);
+        plantOptions.appendChild(li);
+    })
+    dropdownOptions = document.querySelectorAll('.dropdown-item');
 };
 
 
