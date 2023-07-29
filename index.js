@@ -10,9 +10,8 @@ let dropdownOptions = [];
 //           this can be set up to be automatic on save in VSCode
 
 async function getPlantData() {
-
-    // can make these lets consts
-    let API_KEY = 'sk-hhUC648f17aaee2f71312'
+    // can make these lets consts 
+    const API_KEY = 'sk-hhUC648f17aaee2f71312'
     let plants = [] 
     let localArray = JSON.parse(localStorage.getItem("plants"));
 
@@ -32,10 +31,14 @@ async function getPlantData() {
 
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
-    const plantImage = plantData[buttonIndex].default_image.thumbnail;
+    let plantImage = plantData[buttonIndex].default_image.thumbnail;
+    let plantShelf = document.getElementById("shelves");
 
     console.log(plantImage);
 
+    let image = document.createElement("img");
+    image.setAttribute('src', plantImage);
+    plantShelf.appendChild(image);
     // now: put the image on the shelves
 }
 
