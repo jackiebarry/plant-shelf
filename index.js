@@ -2,6 +2,11 @@ const plantButton = document.getElementById('navbarDropdownMenuLink');
 const searchInputDropdown = document.getElementById('search-input-dropdown');
 const plantOptions = document.getElementById('plantOptions');
 const imageLocation = document.querySelector(".shelves");
+
+
+// declare variable "plantBoxDivs", populate it onLoad
+
+
 let plantData = [];
 let dropdownOptions = [];
 
@@ -18,7 +23,7 @@ async function getPlantData() {
         if (localArray && localArray.length) {
         plants = localArray
         } else {
-          for(i=1; i<=2; i++) { // want this to be 100
+          for(i=1; i<=101; i++) { // want this to be 100
                 let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
                 let data = await response.json();
         
@@ -32,7 +37,9 @@ async function getPlantData() {
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
     let plantImage = plantData[buttonIndex].default_image.thumbnail;
-    let plantShelf = document.getElementById("shelves");
+
+    // rather than accessing one plantBox div, will want an array (or array of array?) of plantBox divs
+    let plantShelf = document.getElementById("shelf1").children[0].children[0];
 
     console.log(plantImage);
 

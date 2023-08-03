@@ -10,7 +10,20 @@
     border-radius: 10px;
     height: 100%;
   }
-  
+
+.plantBox{
+  border-style: dashed;
+  margin: 10px;
+  height: 205px;
+  width: 205px;
+}
+
+.plantBoxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
 .shelf {
   padding: 1px;
   padding-top: 50px;
