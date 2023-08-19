@@ -14,16 +14,15 @@ let dropdownOptions = [];
 // thoughts: could set up "prettier" in project, and specify for example yes to semicolons
 //           this can be set up to be automatic on save in VSCode
 
-async function getPlantData() {
-    // can make these lets consts 
+let getPlantData = async () => {
     const API_KEY = 'sk-hhUC648f17aaee2f71312'
     let plants = [] 
-    let localArray = JSON.parse(localStorage.getItem("plants"));
+    const localArray = JSON.parse(localStorage.getItem("plants"));
 
         if (localArray && localArray.length) {
         plants = localArray
         } else {
-          for(i=1; i<=101; i++) { // want this to be 100
+          for(i=1; i<=101; i++) {
                 let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
                 let data = await response.json();
         
@@ -48,8 +47,7 @@ const addPlantImage = (event) => {
     plantShelf.appendChild(image);
     // now: put the image on the shelves
 }
-
-async function onLoad() {
+let onLoad = async () => {
     plantData = await getPlantData()
     console.log(plantData);
 
