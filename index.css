@@ -1,14 +1,15 @@
 #body {
-  padding: 25px;
   background-color: rgb(17, 57, 34);
   height: 100%;
 }
 
 #backgroundImage {
-    padding: 25px;
     background-image: url(images/Vector_20180904_012.jpg);
+    background-attachment: fixed;
+    background-position: center;
     border-radius: 10px;
     height: 100%;
+    max-width: 1025px;
   }
 
 .plantBox{
@@ -26,26 +27,20 @@
 
 .shelf {
   padding: 1px;
-  padding-top: 50px;
+  padding-top: 5px;
   width: 100%;
 }
 
-#plantButton {
-  padding: 25px;
-  font-family: "Brush Script MT", "Lucinda Console", "Courier New", 'Courier New', Courier, monospace;
-  font-size: 100px;
-}
-
 #searchDropdown {
-  padding: 50px;
+  padding: 5px;
   font-size: 100px;
-  font-family: "Brush Script MT", "Lucinda Console", "Courier New", 'Courier New', Courier, monospace;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .primary-header {
-padding: 25px;
-font-family: "Brush Script MT", "Lucinda Console", "Courier New", 'Courier New', Courier, monospace;
-font-size: 200%;
+padding: 5px;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+font-size: 100px;
 color: black;
-text-align: center;
+text-align: left;
 }
