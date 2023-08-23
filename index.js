@@ -33,11 +33,11 @@ const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
     let plantImage = plantData[buttonIndex].default_image.thumbnail;
 
-    // rather than accessing one plantBox div, will want an array (or array of array?) of plantBox divs
-    // let plantBox = document.getElementById("shelves").children[2].children[0].children[0];
 
     // TODO: get the next available div from plantBoxes to add image to and call it plantBox
-    let plantBox = plantBoxes[2]
+    // check if it's filled
+    // once you find a place that's not filled, fill it and mark it filled
+    let plantBox = plantBoxes[13]
 
     console.log(plantImage);
 
@@ -46,7 +46,22 @@ const addPlantImage = (event) => {
     image.setAttribute('class', 'plantImage')
     plantBox.appendChild(image);
 }
+
+populatePlantBoxes = () => {
+  let shelves = document.getElementById("shelves").children
+  for(let i=0; i<shelves.length; i++){
+    let shelf = shelves[i].children[0].children
+    console.log(shelf);
+    
+    for(let j=0; j<shelf.length; j++){
+      plantBoxes.push(shelf[j]) // should this be a { element: <div>, filled: false } object?
+    }
+  }
+  console.log(plantBoxes)
+}
+
 let onLoad = async () => {
+    populatePlantBoxes();
     plantData = await getPlantData()
     console.log(plantData);
 
@@ -64,6 +79,7 @@ let onLoad = async () => {
     })
     dropdownOptions = document.querySelectorAll('.dropdown-item');
 
+  
     
     //populate plant boxes function goes here
 
@@ -82,7 +98,7 @@ let onLoad = async () => {
 
 
     // we are making this
-    // [<div>, <div>, <div>, <div>, <div>, <div>]
+    // [<div>, <div>, <div>, <div>, <div>, <div>] - Success!
 
     // do we need to make this?
     // [
