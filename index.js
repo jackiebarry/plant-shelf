@@ -4,7 +4,7 @@ const plantOptions = document.getElementById('plantOptions');
 
 let plantData = [];
 let dropdownOptions = [];
-let plantBoxes = [];
+let plantBoxObjects = [];
 
 // thoughts: could set up "prettier" in project, and specify for example yes to semicolons
 //           this can be set up to be automatic on save in VSCode
@@ -33,35 +33,44 @@ const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
     let plantImage = plantData[buttonIndex].default_image.thumbnail;
 
+    let index = plantBoxObjects.findIndex( (obj) => !obj.filled )
 
-    // TODO: get the next available div from plantBoxes to add image to and call it plantBox
-    // check if it's filled
-    // once you find a place that's not filled, fill it and mark it filled
-    let plantBox = plantBoxes[13]
+    // need to add something for when you've reached all 15 being full to add a shelf with all its stuff
+    // (objects) and then add that image to the first obj that is !filled
+    // need to add the move functionality
+    // delete plants?
 
-    console.log(plantImage);
+    let plantBoxObj = plantBoxObjects[index]
 
     let image = document.createElement("img");
     image.setAttribute('src', plantImage);
     image.setAttribute('class', 'plantImage')
-    plantBox.appendChild(image);
+    plantBoxObj.element.appendChild(image);
+    plantBoxObj.filled = true;
+
+    console.log(plantBoxObj.filled)
 }
 
-populatePlantBoxes = () => {
+populatePlantBoxObjects = () => {
   let shelves = document.getElementById("shelves").children
   for(let i=0; i<shelves.length; i++){
     let shelf = shelves[i].children[0].children
     console.log(shelf);
     
     for(let j=0; j<shelf.length; j++){
-      plantBoxes.push(shelf[j]) // should this be a { element: <div>, filled: false } object?
+      plantBoxObjects.push(
+          {
+            element: shelf[j], 
+            filled: false
+          }
+        ) 
     }
   }
-  console.log(plantBoxes)
+  console.log(plantBoxObjects)
 }
 
 let onLoad = async () => {
-    populatePlantBoxes();
+    populatePlantBoxObjects();
     plantData = await getPlantData()
     console.log(plantData);
 
@@ -78,57 +87,6 @@ let onLoad = async () => {
         plantOptions.appendChild(li);
     })
     dropdownOptions = document.querySelectorAll('.dropdown-item');
-
-  
-    
-    //populate plant boxes function goes here
-
-    // the for loop where we populate plants in getPlantData is helpful, with a couple of differences
-
-    // for plantBoxes, we could have a double loop
-    //     outer one to get each shelf: children[i].children[0].children    -----> might be able to only loop once here and use concat
-    //     inner one to get each plantBox on a shelf: children[i].children[0].children[j]
-    // want to append each of those children to plantBoxes (actually using method append)
-
-    // or could have a single loop
-    //     to get each shelf: children[i].children[0].children
-    // want to concat that array (array?????) of children to plantBoxes (actually using method concat)
-
-
-
-
-    // we are making this
-    // [<div>, <div>, <div>, <div>, <div>, <div>] - Success!
-
-    // do we need to make this?
-    // [
-    //   {
-    //     element: <div>,
-    //     filled: true,
-    //   },
-    //   {
-    //     element: <div>,
-    //     filled: true,
-    //   },
-    //   {
-    //     element: <div>,
-    //     filled: true,
-    //   },
-    //   {
-    //     element: <div>,
-    //     filled: true,
-    //   },
-    //   {
-    //     element: <div>,
-    //     filled: true,
-    //   },
-    //   {
-    //     element: <div>,
-    //     filled: false,
-    //   }
-    // ]
-
-    
 };
 
 
