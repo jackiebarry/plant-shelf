@@ -32,6 +32,9 @@ let getPlantData = async () => {
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
     let plantImage = plantData[buttonIndex].default_image.thumbnail;
+    let plantName = plantData[buttonIndex].common_name;
+
+    console.log(plantName);
 
     let index = plantBoxObjects.findIndex( (obj) => !obj.filled )
 
@@ -44,7 +47,11 @@ const addPlantImage = (event) => {
 
     let image = document.createElement("img");
     image.setAttribute('src', plantImage);
-    image.setAttribute('class', 'plantImage')
+    image.setAttribute('class', 'plantImage');
+    image.setAttribute('class', 'card-img-top');
+    let name = document.createElement("p");
+    name.setAttribute('class', 'card-text');
+    name.setAttribute('p', plantName);
     plantBoxObj.element.appendChild(image);
     plantBoxObj.filled = true;
 
