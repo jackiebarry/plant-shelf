@@ -55,9 +55,14 @@ const addPlantImage = (event) => {
     image.setAttribute('class', 'plantImage');
     image.setAttribute('class', 'card-img-top');
     let name = document.createElement("p");
+    // let textNode = document.createTextNode(plantName);
+    // textNode.setAttribute('class', 'plantName');
+    name.setAttribute('class', 'card-title');
     name.setAttribute('class', 'plantName');
-    name.setAttribute('p', plantName);
 
+    name.innerHTML = plantName;
+
+    // name.appendChild(textNode)
     plantBoxObj.element.appendChild(image);
     plantBoxObj.element.appendChild(name);
     plantBoxObj.filled = true;

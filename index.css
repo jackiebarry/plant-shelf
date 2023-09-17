@@ -10,14 +10,14 @@
     background-position: center;
     border-radius: 10px;
     height: 75%;
-    max-width: 5000px;
+    max-width: 4075px;
     text-align: center;
   }
 
 .plantName {
   font-family: 'Courier New', Courier, monospace;
-  font-size:large;
-  color:darkorange;
+  font-size: 5rem;
+  color: black;
 }
 
 .plantBox {
