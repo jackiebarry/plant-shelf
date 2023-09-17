@@ -34,15 +34,20 @@ const addPlantImage = (event) => {
     let plantImage = plantData[buttonIndex].default_image.thumbnail;
     let plantName = plantData[buttonIndex].common_name;
 
-    console.log(plantName);
-
     let index = plantBoxObjects.findIndex( (obj) => !obj.filled )
 
-    // need to add something for when you've reached all 15 being full to add a shelf with all its stuff
-    // (objects) and then add that image to the first obj that is !filled
-    // need to add the move functionality
-    // delete plants?
+    if (index === -1) {
 
+      addShelf()
+      index = plantBoxObjects.findIndex( (obj) => !obj.filled )
+
+      // need to add something for when you've reached all 15 being full to add a shelf with all its stuff
+      // (objects) and then add that image to the first obj that is !filled
+      // need to add the move functionality
+      // delete plants?
+
+     
+    }  
     let plantBoxObj = plantBoxObjects[index]
 
     let image = document.createElement("img");
@@ -50,17 +55,46 @@ const addPlantImage = (event) => {
     image.setAttribute('class', 'plantImage');
     image.setAttribute('class', 'card-img-top');
     let name = document.createElement("p");
-    name.setAttribute('class', 'card-text');
+    name.setAttribute('class', 'plantName');
     name.setAttribute('p', plantName);
+
     plantBoxObj.element.appendChild(image);
+    plantBoxObj.element.appendChild(name);
     plantBoxObj.filled = true;
 
-    console.log(plantBoxObj.filled)
 }
 
-// addShelf = () => {
+addShelf = () => {
+  let newShelf = document.createElement("div");
+  newShelf.setAttribute('class', 'shelfContainer');
 
-// }
+  let shelfImage = document.createElement("img");
+    shelfImage.setAttribute('src', "images/wooden-shelf.png");
+    shelfImage.setAttribute('class', 'shelf');
+
+  let newBoxes = document.createElement("div");
+  newBoxes.setAttribute('class', 'plantBoxes');
+
+  for(i=0; i<5; i++) {
+    let newBox = document.createElement("div");
+    newBox.setAttribute('class', 'plantBox');
+    plantBoxObjects.push(
+      {
+        element: newBox, 
+        filled: false
+      }
+    ) 
+    newBoxes.appendChild(newBox);
+
+  }
+
+  newShelf.appendChild(newBoxes);
+  newShelf.appendChild(shelfImage);
+
+  let shelves = document.getElementById("shelves")
+  shelves.appendChild(newShelf);
+
+}
 
 populatePlantBoxObjects = () => {
   let shelves = document.getElementById("shelves").children
@@ -70,11 +104,11 @@ populatePlantBoxObjects = () => {
     
     for(let j=0; j<shelf.length; j++){
       plantBoxObjects.push(
-          {
-            element: shelf[j], 
-            filled: false
-          }
-        ) 
+        {
+          element: shelf[j], 
+          filled: false
+        }
+      ) 
     }
   }
   console.log(plantBoxObjects)
