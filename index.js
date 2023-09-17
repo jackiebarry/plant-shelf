@@ -58,6 +58,10 @@ const addPlantImage = (event) => {
     console.log(plantBoxObj.filled)
 }
 
+// addShelf = () => {
+
+// }
+
 populatePlantBoxObjects = () => {
   let shelves = document.getElementById("shelves").children
   for(let i=0; i<shelves.length; i++){
