@@ -55,21 +55,40 @@ const addPlantImage = (event) => {
     image.setAttribute('class', 'plantImage');
     image.setAttribute('class', 'card-img-top');
     let name = document.createElement("p");
-    // let textNode = document.createTextNode(plantName);
-    // textNode.setAttribute('class', 'plantName');
+    
     name.setAttribute('class', 'card-title');
     name.setAttribute('class', 'plantName');
 
     name.innerHTML = plantName;
 
+    let deleteButton = document.createElement("button");
+    deleteButton.setAttribute('class', 'btn btn-danger btn-floating');
+    // deleteButton.setAttribute('id', index)
+    deleteButton.setAttribute('id', index)
+    console.log('index here', index)
+
+    deleteButton.addEventListener('click', deletePlant)
+
+   
+    let buttonIcon = document.createElement("span");
+    buttonIcon.setAttribute('class', 'fas fa-skull fa-2x');
+    deleteButton.appendChild(buttonIcon);
+   
     // name.appendChild(textNode)
     plantBoxObj.element.appendChild(image);
     plantBoxObj.element.appendChild(name);
+    plantBoxObj.element.appendChild(deleteButton);
     plantBoxObj.filled = true;
+}
+
+const deletePlant = (event) => {
+let eventIndex = event.target.id; 
+//index of plant box objects 
+console.log(eventIndex);
 
 }
 
-addShelf = () => {
+const addShelf = () => {
   let newShelf = document.createElement("div");
   newShelf.setAttribute('class', 'shelfContainer');
 
@@ -101,7 +120,7 @@ addShelf = () => {
 
 }
 
-populatePlantBoxObjects = () => {
+let populatePlantBoxObjects = () => {
   let shelves = document.getElementById("shelves").children
   for(let i=0; i<shelves.length; i++){
     let shelf = shelves[i].children[0].children
@@ -118,6 +137,11 @@ populatePlantBoxObjects = () => {
   }
   console.log(plantBoxObjects)
 }
+
+
+
+
+
 
 let onLoad = async () => {
     populatePlantBoxObjects();
