@@ -82,7 +82,7 @@ const addPlantImage = (event) => {
 }
 
 const deletePlant = (event) => {
-let eventIndex = event.target.id; 
+let eventIndex = event.currentTarget.id; 
 //index of plant box objects 
 console.log(eventIndex);
 
