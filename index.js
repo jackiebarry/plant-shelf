@@ -41,21 +41,29 @@ const addPlantImage = (event) => {
       addShelf()
       index = plantBoxObjects.findIndex( (obj) => !obj.filled )
 
-      // need to add something for when you've reached all 15 being full to add a shelf with all its stuff
-      // (objects) and then add that image to the first obj that is !filled
-      // need to add the move functionality
-      // delete plants?
+
+      // Big: want to add the move functionality
+      // Need: store plants in shelves
+      // Need: want to add fallback image for plants with no image
+      // Need: improve wait time on API calls
+      // Want: add shelf button
+      // Want: could add water info
+      // Want: could add card flip functionality
 
      
     }  
     let plantBoxObj = plantBoxObjects[index]
 
+// TODO: create a div to add all image-y things to
+    // let imageCard = document.createElement("div");
+
+
     let image = document.createElement("img");
     image.setAttribute('src', plantImage);
     image.setAttribute('class', 'plantImage');
     image.setAttribute('class', 'card-img-top');
-    let name = document.createElement("p");
     
+    let name = document.createElement("p");
     name.setAttribute('class', 'card-title');
     name.setAttribute('class', 'plantName');
 
@@ -75,18 +83,41 @@ const addPlantImage = (event) => {
     deleteButton.appendChild(buttonIcon);
    
     // name.appendChild(textNode)
+    console.log(plantBoxObj);
     plantBoxObj.element.appendChild(image);
     plantBoxObj.element.appendChild(name);
     plantBoxObj.element.appendChild(deleteButton);
     plantBoxObj.filled = true;
-}
 
+    plantBoxObj.element.appendChild(image);
+    plantBoxObj.element.appendChild(name);
+    plantBoxObj.element.appendChild(deleteButton);
+    plantBoxObj.filled = true;
+
+    // imageCard.appendChild(plantBoxObj);
+
+    // let plantBox = document.getElementsByClassName("plantBox");
+    // plantBox.appendChild(imageCard);
+    console.log(plantBoxObj);
+}; 
+ 
 const deletePlant = (event) => {
 let eventIndex = event.currentTarget.id; 
+let plantBoxObj = plantBoxObjects[eventIndex]
+
 //index of plant box objects 
 console.log(eventIndex);
+console.log(plantBoxObj);
 
-}
+// TODO: make these one div
+plantBoxObj.element.children[0].remove();
+plantBoxObj.element.children[0].remove();
+plantBoxObj.element.children[0].remove();
+
+plantBoxObj.filled = false;
+
+};
+
 
 const addShelf = () => {
   let newShelf = document.createElement("div");
