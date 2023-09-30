@@ -18,6 +18,43 @@
 
 <body id="body">
 
+        <div id="header">
+            <h1 class="primary-header">Virtual Plant Storage</h1>
+    
+            <div id="searchDropdown">
+    
+                <a
+                    class="dropdown-toggle hidden-arrow btn btn-primary bg-warning"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    Add your Plant
+                </a>
+                
+                <ul id="plantOptions" class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
+                    <li>
+                        <div class="input-group mt-2 mx-2">
+                        <div class="form-outline w-auto">
+                            <input type="search" id="search-input-dropdown" class="form-control-dropdown" />
+                            <label class="form-label" for="search-input-dropdown">Search</label>
+                        </div>
+                        </div>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                </ul>
+                
+            </div>
+
+            <div id="shelfButton">
+                <button class="btn btn-primary bg-warning" id="addShelf">
+                    Add A Shelf
+                </button>
+            </div>
+
+        </div>
   
     <div id="backgroundImage">
 
@@ -64,38 +101,6 @@
         </div> 
     </div>
   
-    <div id="header">
-        
-        <h1 class="primary-header">Virtual Plant Storage</h1>
-    
-            <div id="searchDropdown">
-    
-                <a
-                    class="dropdown-toggle hidden-arrow btn btn-primary bg-warning"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                >
-                    Add your Plant
-                </a>
-                
-                <ul id="plantOptions" class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
-                    <li>
-                        <div class="input-group mt-2 mx-2">
-                        <div class="form-outline w-auto">
-                            <input type="search" id="search-input-dropdown" class="form-control-dropdown" />
-                            <label class="form-label" for="search-input-dropdown">Search</label>
-                        </div>
-                        </div>
-                    </li>
-                    <li><hr class="dropdown-divider" /></li>
-                </ul>
-                
-            </div>
-    
-        </div>
 
 <script src="index.js"></script>
 

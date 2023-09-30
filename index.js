@@ -6,6 +6,8 @@ let plantData = [];
 let dropdownOptions = [];
 let plantBoxObjects = [];
 
+
+
 // thoughts: could set up "prettier" in project, and specify for example yes to semicolons
 //           this can be set up to be automatic on save in VSCode
 
@@ -119,6 +121,7 @@ plantBoxObj.filled = false;
 };
 
 
+
 const addShelf = () => {
   let newShelf = document.createElement("div");
   newShelf.setAttribute('class', 'shelfContainer');
@@ -150,6 +153,9 @@ const addShelf = () => {
   shelves.appendChild(newShelf);
 
 }
+
+const shelfButton = document.getElementById("shelfButton");
+shelfButton.addEventListener("click", addShelf);
 
 let populatePlantBoxObjects = () => {
   let shelves = document.getElementById("shelves").children
