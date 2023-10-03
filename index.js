@@ -6,6 +6,8 @@ let plantData = [];
 let dropdownOptions = [];
 let plantBoxObjects = [];
 
+let imageCard = document.getElementsByClassName("imageCard");
+
 
 
 // thoughts: could set up "prettier" in project, and specify for example yes to semicolons
@@ -31,6 +33,17 @@ let getPlantData = async () => {
     return plants;
 };
 
+
+
+      // Big: want to add the move functionality
+      // Need: store plants in shelves
+      // Need: want to add fallback image for plants with no image
+      // Need: improve wait time on API calls
+      // Want: add shelf button
+      // Want: could add water info
+      // Want: could add card flip functionality
+
+
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
     let plantImage = plantData[buttonIndex].default_image.thumbnail;
@@ -42,22 +55,14 @@ const addPlantImage = (event) => {
 
       addShelf()
       index = plantBoxObjects.findIndex( (obj) => !obj.filled )
-
-
-      // Big: want to add the move functionality
-      // Need: store plants in shelves
-      // Need: want to add fallback image for plants with no image
-      // Need: improve wait time on API calls
-      // Want: add shelf button
-      // Want: could add water info
-      // Want: could add card flip functionality
-
      
     }  
     let plantBoxObj = plantBoxObjects[index]
 
 // TODO: create a div to add all image-y things to
-    // let imageCard = document.createElement("div");
+
+    let imageCard = document.createElement("div");
+    imageCard.setAttribute('class', 'imageCard') 
 
 
     let image = document.createElement("img");
@@ -86,15 +91,19 @@ const addPlantImage = (event) => {
    
     // name.appendChild(textNode)
     console.log(plantBoxObj);
-    plantBoxObj.element.appendChild(image);
-    plantBoxObj.element.appendChild(name);
-    plantBoxObj.element.appendChild(deleteButton);
+
+    imageCard.appendChild(image);
+    imageCard.appendChild(name);
+    imageCard.appendChild(deleteButton);
+
+
+    plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
 
-    plantBoxObj.element.appendChild(image);
-    plantBoxObj.element.appendChild(name);
-    plantBoxObj.element.appendChild(deleteButton);
-    plantBoxObj.filled = true;
+    // plantBoxObj.element.appendChild(image);
+    // plantBoxObj.element.appendChild(name);
+    // plantBoxObj.element.appendChild(deleteButton);
+    // plantBoxObj.filled = true;
 
     // imageCard.appendChild(plantBoxObj);
 
@@ -175,7 +184,9 @@ let populatePlantBoxObjects = () => {
   console.log(plantBoxObjects)
 }
 
+// imageCard.addEventListener('onmousedown', () => {
 
+// })
 
 
 
