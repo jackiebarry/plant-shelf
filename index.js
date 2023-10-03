@@ -1,3 +1,17 @@
+     // Big: want to add the move functionality
+      // Need: store plants in shelves
+      // Need: want to add fallback image for plants with no image
+      // Need: improve wait time on API calls
+      // Want: add shelf button
+      // Want: could add water info
+      // Want: could add card flip functionality
+
+
+
+// thoughts: could set up "prettier" in project, and specify for example yes to semicolons
+//           this can be set up to be automatic on save in VSCode
+
+
 const plantButton = document.getElementById('navbarDropdownMenuLink');
 const searchInputDropdown = document.getElementById('search-input-dropdown');
 const plantOptions = document.getElementById('plantOptions');
@@ -6,12 +20,23 @@ let plantData = [];
 let dropdownOptions = [];
 let plantBoxObjects = [];
 
-let imageCard = document.getElementsByClassName("imageCard");
+function dragStart(event) {
+  event.dataTransfer.setData("Text", event.target.id);
+};
+
+function allowDrop(event) {
+  //this needs an if else statement to handle boxes being filled 
+  event.preventDefault();
+};
+
+function drop(event) {
+  event.preventDefault();
+  const data = event.dataTransfer.getData("Text");
+  event.target.appendChild(document.getElementById(data));
+};
 
 
 
-// thoughts: could set up "prettier" in project, and specify for example yes to semicolons
-//           this can be set up to be automatic on save in VSCode
 
 let getPlantData = async () => {
     // can change some lets to consts
@@ -33,17 +58,6 @@ let getPlantData = async () => {
     return plants;
 };
 
-
-
-      // Big: want to add the move functionality
-      // Need: store plants in shelves
-      // Need: want to add fallback image for plants with no image
-      // Need: improve wait time on API calls
-      // Want: add shelf button
-      // Want: could add water info
-      // Want: could add card flip functionality
-
-
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
     let plantImage = plantData[buttonIndex].default_image.thumbnail;
@@ -57,18 +71,20 @@ const addPlantImage = (event) => {
       index = plantBoxObjects.findIndex( (obj) => !obj.filled )
      
     }  
+
     let plantBoxObj = plantBoxObjects[index]
 
-// TODO: create a div to add all image-y things to
-
     let imageCard = document.createElement("div");
-    imageCard.setAttribute('class', 'imageCard') 
-
+    imageCard.setAttribute('class', 'imageCard');
+    imageCard.setAttribute('draggable', true); 
+    imageCard.setAttribute('id', 'dragTarget')
+    
 
     let image = document.createElement("img");
     image.setAttribute('src', plantImage);
     image.setAttribute('class', 'plantImage');
     image.setAttribute('class', 'card-img-top');
+    image.setAttribute('draggable', false);
     
     let name = document.createElement("p");
     name.setAttribute('class', 'card-title');
@@ -78,37 +94,24 @@ const addPlantImage = (event) => {
 
     let deleteButton = document.createElement("button");
     deleteButton.setAttribute('class', 'btn btn-danger btn-floating');
-    // deleteButton.setAttribute('id', index)
     deleteButton.setAttribute('id', index)
     console.log('index here', index)
 
     deleteButton.addEventListener('click', deletePlant)
 
-   
     let buttonIcon = document.createElement("span");
     buttonIcon.setAttribute('class', 'fas fa-skull fa-2x');
     deleteButton.appendChild(buttonIcon);
    
-    // name.appendChild(textNode)
     console.log(plantBoxObj);
 
     imageCard.appendChild(image);
     imageCard.appendChild(name);
     imageCard.appendChild(deleteButton);
 
-
     plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
 
-    // plantBoxObj.element.appendChild(image);
-    // plantBoxObj.element.appendChild(name);
-    // plantBoxObj.element.appendChild(deleteButton);
-    // plantBoxObj.filled = true;
-
-    // imageCard.appendChild(plantBoxObj);
-
-    // let plantBox = document.getElementsByClassName("plantBox");
-    // plantBox.appendChild(imageCard);
     console.log(plantBoxObj);
 }; 
  
@@ -120,9 +123,6 @@ let plantBoxObj = plantBoxObjects[eventIndex]
 console.log(eventIndex);
 console.log(plantBoxObj);
 
-// TODO: make these one div
-plantBoxObj.element.children[0].remove();
-plantBoxObj.element.children[0].remove();
 plantBoxObj.element.children[0].remove();
 
 plantBoxObj.filled = false;
@@ -145,6 +145,9 @@ const addShelf = () => {
   for(i=0; i<5; i++) {
     let newBox = document.createElement("div");
     newBox.setAttribute('class', 'plantBox');
+    newBox.addEventListener("drop", drop);
+    newBox.addEventListener("dragover", allowDrop);
+    newBox.addEventListener("dragstart", dragStart);
     plantBoxObjects.push(
       {
         element: newBox, 
@@ -184,6 +187,7 @@ let populatePlantBoxObjects = () => {
   console.log(plantBoxObjects)
 }
 
+
 // imageCard.addEventListener('onmousedown', () => {
 
 // })
@@ -192,8 +196,11 @@ let populatePlantBoxObjects = () => {
 
 
 let onLoad = async () => {
+  for(let i=0; i<3; i++){
+    addShelf();
+  };
     populatePlantBoxObjects();
-    plantData = await getPlantData()
+    plantData = await getPlantData();
     console.log(plantData);
 
     // note: might want to add some vertical overflow styling to the ul

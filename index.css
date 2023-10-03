@@ -20,13 +20,13 @@
   padding: 10px;
 }
 
-  #buttons {
-    display: flex;
-    padding: 5rem;
-    justify-content: space-evenly;
-    max-width: 4075px;
-    margin: auto;
-  }
+#buttons {
+  display: flex;
+  padding: 5rem;
+  justify-content: space-evenly;
+  max-width: 4075px;
+  margin: auto;
+}
 
 .shelfContainer {
   padding-top: 150px;
