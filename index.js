@@ -1,4 +1,7 @@
      // Big: want to add the move functionality
+        //need unique ids - right before dragging give it an id - after dragging take  away id  ---- 
+        //changed filled status after dragging 
+
       // Need: store plants in shelves
       // Need: want to add fallback image for plants with no image
       // Need: improve wait time on API calls
@@ -16,23 +19,40 @@ const plantButton = document.getElementById('navbarDropdownMenuLink');
 const searchInputDropdown = document.getElementById('search-input-dropdown');
 const plantOptions = document.getElementById('plantOptions');
 
-let plantData = [];
+let plantData = []; 
 let dropdownOptions = [];
 let plantBoxObjects = [];
 
 function dragStart(event) {
   event.dataTransfer.setData("Text", event.target.id);
+
+  let eventIndex = event.currentTarget.id; 
+  let plantBoxObj = plantBoxObjects[eventIndex]
+
+  console.log(eventIndex);
+  console.log(plantBoxObj);
+
+  plantBoxObj.filled = false;
 };
 
 function allowDrop(event) {
   //this needs an if else statement to handle boxes being filled 
+
   event.preventDefault();
+
+ 
 };
 
 function drop(event) {
   event.preventDefault();
   const data = event.dataTransfer.getData("Text");
   event.target.appendChild(document.getElementById(data));
+
+  let eventIndex = event.currentTarget.id; 
+  let plantBoxObj = plantBoxObjects[eventIndex]
+
+  plantBoxObj.filled = true;
+
 };
 
 
@@ -77,8 +97,9 @@ const addPlantImage = (event) => {
     let imageCard = document.createElement("div");
     imageCard.setAttribute('class', 'imageCard');
     imageCard.setAttribute('draggable', true); 
-    imageCard.setAttribute('id', 'dragTarget')
-    
+    imageCard.setAttribute('id', 'dragTarget') // `dragTarget-${myRandomNumber}`
+    imageCard.addEventListener("dragstart", dragStart);
+
 
     let image = document.createElement("img");
     image.setAttribute('src', plantImage);
@@ -147,7 +168,6 @@ const addShelf = () => {
     newBox.setAttribute('class', 'plantBox');
     newBox.addEventListener("drop", drop);
     newBox.addEventListener("dragover", allowDrop);
-    newBox.addEventListener("dragstart", dragStart);
     plantBoxObjects.push(
       {
         element: newBox, 
