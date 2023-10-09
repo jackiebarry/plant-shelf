@@ -24,15 +24,11 @@ let dropdownOptions = [];
 let plantBoxObjects = [];
 
 function dragStart(event) {
-  event.dataTransfer.setData("Text", event.target.id);
+  event.dataTransfer.setData('Text', event.target.id);
+  console.log(event.currentTarget.parentElement);
 
-  let eventIndex = event.currentTarget.id; 
-  let plantBoxObj = plantBoxObjects[eventIndex]
 
-  console.log(eventIndex);
-  console.log(plantBoxObj);
 
-  plantBoxObj.filled = false;
 };
 
 function allowDrop(event) {
@@ -40,7 +36,6 @@ function allowDrop(event) {
 
   event.preventDefault();
 
- 
 };
 
 function drop(event) {
@@ -48,10 +43,13 @@ function drop(event) {
   const data = event.dataTransfer.getData("Text");
   event.target.appendChild(document.getElementById(data));
 
-  let eventIndex = event.currentTarget.id; 
-  let plantBoxObj = plantBoxObjects[eventIndex]
+  // let eventIndex = event.currentTarget.id; 
+  // let plantBoxObj = plantBoxObjects[eventIndex]
 
-  plantBoxObj.filled = true;
+  // console.log(eventIndex);
+  // console.log(plantBoxObj);
+
+  // plantBoxObj.filled = true;
 
 };
 
@@ -80,7 +78,27 @@ let getPlantData = async () => {
 
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
-    let plantImage = plantData[buttonIndex].default_image.thumbnail;
+    
+    if (plantData[buttonIndex].default_image.thumbnail === null) {
+    let image = document.createElement("img");
+
+      image.setAttribute('src', "images/stock-plant.jpeg");
+      image.setAttribute('class', 'plantImage');
+      image.setAttribute('class', 'card-img-top');
+      image.setAttribute('draggable', false);
+    } 
+    else {
+      let plantImage = plantData[buttonIndex].default_image.thumbnail;
+
+      let image = document.createElement("img");
+
+      image.setAttribute('src', plantImage);
+      image.setAttribute('class', 'plantImage');
+      image.setAttribute('class', 'card-img-top');
+      image.setAttribute('draggable', false);
+    };
+    // let plantImage = plantData[buttonIndex].default_image.thumbnail;
+
     let plantName = plantData[buttonIndex].common_name;
 
     let index = plantBoxObjects.findIndex( (obj) => !obj.filled )
@@ -102,7 +120,13 @@ const addPlantImage = (event) => {
 
 
     let image = document.createElement("img");
-    image.setAttribute('src', plantImage);
+
+  //   if (plantImage === null) {
+  //     image.setAttribute('src', "images/stock-plant.jpeg");
+  //   } else {
+  //   image.setAttribute('src', plantImage);
+  // };
+
     image.setAttribute('class', 'plantImage');
     image.setAttribute('class', 'card-img-top');
     image.setAttribute('draggable', false);
@@ -196,6 +220,7 @@ let populatePlantBoxObjects = () => {
     console.log(shelf);
     
     for(let j=0; j<shelf.length; j++){
+      shelf[j].setAttribute('id', `${i}, ${j}`);
       plantBoxObjects.push(
         {
           element: shelf[j], 
