@@ -27,6 +27,11 @@ function dragStart(event) {
   event.dataTransfer.setData('Text', event.target.id);
   console.log(event.currentTarget.parentElement);
 
+  let plantBoxObj = plantBoxObjects[event.currentTarget.parentElement]
+  // .children[0]
+
+  plantBoxObj.filled = false;
+
 
 
 };
@@ -78,25 +83,24 @@ let getPlantData = async () => {
 
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
-    
-    if (plantData[buttonIndex].default_image.thumbnail === null) {
-    let image = document.createElement("img");
 
-      image.setAttribute('src', "images/stock-plant.jpeg");
-      image.setAttribute('class', 'plantImage');
-      image.setAttribute('class', 'card-img-top');
-      image.setAttribute('draggable', false);
-    } 
-    else {
-      let plantImage = plantData[buttonIndex].default_image.thumbnail;
+   let plantImage = plantData[buttonIndex].default_image.thumbnail;
 
-      let image = document.createElement("img");
+  //  if (thumbnail == null) {
+  //     let image = document.createElement("img")
+  //     image.setAttribute('src', "images/stock-plant.jpeg");
+  //     image.setAttribute('class', 'plantImage');
+  //     image.setAttribute('class', 'card-img-top');
+  //     image.setAttribute('draggable', false);
+  //   } 
+  //   else {
+  //     let image = document.createElement("img");
 
-      image.setAttribute('src', plantImage);
-      image.setAttribute('class', 'plantImage');
-      image.setAttribute('class', 'card-img-top');
-      image.setAttribute('draggable', false);
-    };
+  //     image.setAttribute('src', plantImage);
+  //     image.setAttribute('class', 'plantImage');
+  //     image.setAttribute('class', 'card-img-top');
+  //     image.setAttribute('draggable', false);
+  //   };
     // let plantImage = plantData[buttonIndex].default_image.thumbnail;
 
     let plantName = plantData[buttonIndex].common_name;
@@ -124,7 +128,7 @@ const addPlantImage = (event) => {
   //   if (plantImage === null) {
   //     image.setAttribute('src', "images/stock-plant.jpeg");
   //   } else {
-  //   image.setAttribute('src', plantImage);
+    image.setAttribute('src', plantImage);
   // };
 
     image.setAttribute('class', 'plantImage');
@@ -231,13 +235,6 @@ let populatePlantBoxObjects = () => {
   }
   console.log(plantBoxObjects)
 }
-
-
-// imageCard.addEventListener('onmousedown', () => {
-
-// })
-
-
 
 
 let onLoad = async () => {
