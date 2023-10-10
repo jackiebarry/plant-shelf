@@ -1,6 +1,6 @@
      // Big: want to add the move functionality
         //need unique ids - right before dragging give it an id - after dragging take  away id  ---- 
-        //changed filled status after dragging 
+        //changed filled status after dragging  
 
       // Need: store plants in shelves
       // Need: want to add fallback image for plants with no image
@@ -84,23 +84,22 @@ let getPlantData = async () => {
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
 
-   let plantImage = plantData[buttonIndex].default_image.thumbnail;
-
-  //  if (thumbnail == null) {
-  //     let image = document.createElement("img")
-  //     image.setAttribute('src', "images/stock-plant.jpeg");
-  //     image.setAttribute('class', 'plantImage');
-  //     image.setAttribute('class', 'card-img-top');
-  //     image.setAttribute('draggable', false);
-  //   } 
-  //   else {
-  //     let image = document.createElement("img");
-
-  //     image.setAttribute('src', plantImage);
-  //     image.setAttribute('class', 'plantImage');
-  //     image.setAttribute('class', 'card-img-top');
-  //     image.setAttribute('draggable', false);
-  //   };
+   let plantImage = plantData[buttonIndex].default_image.thumbnail; 
+   
+   if (plantImage === null) {
+      let image = document.createElement("img")
+      image.setAttribute('src', "images/stock-plant.jpeg");
+      image.setAttribute('class', 'plantImage');
+      image.setAttribute('class', 'card-img-top');
+      image.setAttribute('draggable', false);
+    } 
+    else {
+      let image = document.createElement("img");
+      image.setAttribute('src', plantImage);
+      image.setAttribute('class', 'plantImage');
+      image.setAttribute('class', 'card-img-top');
+      image.setAttribute('draggable', false);
+    };
     // let plantImage = plantData[buttonIndex].default_image.thumbnail;
 
     let plantName = plantData[buttonIndex].common_name;
@@ -122,18 +121,17 @@ const addPlantImage = (event) => {
     imageCard.setAttribute('id', 'dragTarget') // `dragTarget-${myRandomNumber}`
     imageCard.addEventListener("dragstart", dragStart);
 
-
-    let image = document.createElement("img");
-
+ 
+  //   let image = document.createElement("img");
   //   if (plantImage === null) {
   //     image.setAttribute('src', "images/stock-plant.jpeg");
-  //   } else {
-    image.setAttribute('src', plantImage);
+  //   } 
+  //   else {
+  //   image.setAttribute('src', plantImage);
   // };
-
-    image.setAttribute('class', 'plantImage');
-    image.setAttribute('class', 'card-img-top');
-    image.setAttribute('draggable', false);
+  //   image.setAttribute('class', 'plantImage');
+  //   image.setAttribute('class', 'card-img-top');
+  //   image.setAttribute('draggable', false);
     
     let name = document.createElement("p");
     name.setAttribute('class', 'card-title');
