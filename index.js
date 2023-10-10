@@ -25,7 +25,7 @@ let plantBoxObjects = [];
 
 function dragStart(event) {
   event.dataTransfer.setData('Text', event.target.id);
-  console.log(event.currentTarget.parentElement);
+  // console.log(event.currentTarget.parentElement);
 
   let eventIndex = event.currentTarget.parentElement.id
   let plantBoxObj = plantBoxObjects[eventIndex]
@@ -36,10 +36,19 @@ function dragStart(event) {
 };
 
 function allowDrop(event) {
+  console.log(event.currentTarget.id);
+
+  let eventIndex = event.currentTarget.id;
+  let plantBoxObj = plantBoxObjects[eventIndex]
+
+  console.log(plantBoxObj)
+  if (plantBoxObj.filled === false){
   //this needs an if else statement to handle boxes being filled 
-
-  event.preventDefault();
-
+  // console.log(plantBoxObjects[]);  
+  event.preventDefault();}
+  else {
+    event
+  }
 };
 
 function drop(event) {
