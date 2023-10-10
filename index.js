@@ -25,22 +25,30 @@ let plantBoxObjects = [];
 
 function dragStart(event) {
   event.dataTransfer.setData('Text', event.target.id);
-  console.log(event.currentTarget.parentElement);
+  // console.log(event.currentTarget.parentElement);
 
-  let plantBoxObj = plantBoxObjects[event.currentTarget.parentElement]
-  // .children[0]
+  let eventIndex = event.currentTarget.parentElement.id
+  let plantBoxObj = plantBoxObjects[eventIndex]
+
+  console.log(plantBoxObj);
 
   plantBoxObj.filled = false;
-
-
-
 };
 
 function allowDrop(event) {
+  console.log(event.currentTarget.id);
+
+  let eventIndex = event.currentTarget.id;
+  let plantBoxObj = plantBoxObjects[eventIndex]
+
+  console.log(plantBoxObj)
+  if (plantBoxObj.filled === false){
   //this needs an if else statement to handle boxes being filled 
-
-  event.preventDefault();
-
+  // console.log(plantBoxObjects[]);  
+  event.preventDefault();}
+  else {
+    event
+  }
 };
 
 function drop(event) {
@@ -48,13 +56,11 @@ function drop(event) {
   const data = event.dataTransfer.getData("Text");
   event.target.appendChild(document.getElementById(data));
 
-  // let eventIndex = event.currentTarget.id; 
-  // let plantBoxObj = plantBoxObjects[eventIndex]
+  let eventIndex = event.currentTarget.id; 
+  let plantBoxObj = plantBoxObjects[eventIndex]
 
-  // console.log(eventIndex);
-  // console.log(plantBoxObj);
 
-  // plantBoxObj.filled = true;
+  plantBoxObj.filled = true;
 
 };
 
@@ -142,7 +148,7 @@ const addPlantImage = (event) => {
     let deleteButton = document.createElement("button");
     deleteButton.setAttribute('class', 'btn btn-danger btn-floating');
     deleteButton.setAttribute('id', index)
-    console.log('index here', index)
+    // console.log('index here', index)
 
     deleteButton.addEventListener('click', deletePlant)
 
@@ -150,7 +156,7 @@ const addPlantImage = (event) => {
     buttonIcon.setAttribute('class', 'fas fa-skull fa-2x');
     deleteButton.appendChild(buttonIcon);
    
-    console.log(plantBoxObj);
+    // console.log(plantBoxObj);
 
     imageCard.appendChild(image);
     imageCard.appendChild(name);
@@ -159,7 +165,7 @@ const addPlantImage = (event) => {
     plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
 
-    console.log(plantBoxObj);
+    // console.log(plantBoxObj);
 }; 
  
 const deletePlant = (event) => {
@@ -167,8 +173,8 @@ let eventIndex = event.currentTarget.id;
 let plantBoxObj = plantBoxObjects[eventIndex]
 
 //index of plant box objects 
-console.log(eventIndex);
-console.log(plantBoxObj);
+// console.log(eventIndex);
+// console.log(plantBoxObj);
 
 plantBoxObj.element.children[0].remove();
 
@@ -219,10 +225,10 @@ let populatePlantBoxObjects = () => {
   let shelves = document.getElementById("shelves").children
   for(let i=0; i<shelves.length; i++){
     let shelf = shelves[i].children[0].children
-    console.log(shelf);
+    // console.log(shelf);
     
     for(let j=0; j<shelf.length; j++){
-      shelf[j].setAttribute('id', `${i}, ${j}`);
+      shelf[j].setAttribute('id', ((i * 5) + j));
       plantBoxObjects.push(
         {
           element: shelf[j], 
@@ -231,7 +237,7 @@ let populatePlantBoxObjects = () => {
       ) 
     }
   }
-  console.log(plantBoxObjects)
+  // console.log(plantBoxObjects)
 }
 
 
@@ -241,7 +247,7 @@ let onLoad = async () => {
   };
     populatePlantBoxObjects();
     plantData = await getPlantData();
-    console.log(plantData);
+    // console.log(plantData);
 
     // note: might want to add some vertical overflow styling to the ul
     plantData.forEach((plant, plantIndex) => {
