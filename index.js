@@ -1,11 +1,10 @@
-     // Big: want to add the move functionality
-        //need unique ids - right before dragging give it an id - after dragging take  away id  ---- 
-        //changed filled status after dragging  
 
       // Need: store plants in shelves
-      // Need: want to add fallback image for plants with no image
+        //start with plantboxobjs and plants 
+
+
+
       // Need: improve wait time on API calls
-      // Want: add shelf button
       // Want: could add water info
       // Want: could add card flip functionality
 
@@ -59,7 +58,6 @@ function drop(event) {
   let eventIndex = event.currentTarget.id; 
   let plantBoxObj = plantBoxObjects[eventIndex]
 
-
   plantBoxObj.filled = true;
 
 };
@@ -90,25 +88,7 @@ let getPlantData = async () => {
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
 
-   let plantImage = plantData[buttonIndex].default_image.thumbnail; 
-   
-   if (plantImage === null) {
-      let image = document.createElement("img")
-      image.setAttribute('src', "images/stock-plant.jpeg");
-      image.setAttribute('class', 'plantImage');
-      image.setAttribute('class', 'card-img-top');
-      image.setAttribute('draggable', false);
-    } 
-    else {
-      let image = document.createElement("img");
-      image.setAttribute('src', plantImage);
-      image.setAttribute('class', 'plantImage');
-      image.setAttribute('class', 'card-img-top');
-      image.setAttribute('draggable', false);
-    };
-    // let plantImage = plantData[buttonIndex].default_image.thumbnail;
-
-    let plantName = plantData[buttonIndex].common_name;
+  
 
     let index = plantBoxObjects.findIndex( (obj) => !obj.filled )
 
@@ -124,21 +104,23 @@ const addPlantImage = (event) => {
     let imageCard = document.createElement("div");
     imageCard.setAttribute('class', 'imageCard');
     imageCard.setAttribute('draggable', true); 
-    imageCard.setAttribute('id', 'dragTarget') // `dragTarget-${myRandomNumber}`
+    imageCard.setAttribute('id', `dragTarget-${Date.now()}`); 
     imageCard.addEventListener("dragstart", dragStart);
 
- 
-  //   let image = document.createElement("img");
-  //   if (plantImage === null) {
-  //     image.setAttribute('src', "images/stock-plant.jpeg");
-  //   } 
-  //   else {
-  //   image.setAttribute('src', plantImage);
-  // };
-  //   image.setAttribute('class', 'plantImage');
-  //   image.setAttribute('class', 'card-img-top');
-  //   image.setAttribute('draggable', false);
-    
+ console.log(imageCard.id);
+
+
+    let plantImage = plantData[buttonIndex].default_image?.thumbnail
+
+    let image = document.createElement("img")
+    image.setAttribute('src', plantImage ? plantImage : "images/stock-plant.jpeg");
+    image.setAttribute('class', 'plantImage');
+    image.setAttribute('class', 'card-img-top');
+    image.setAttribute('draggable', false);
+  
+  
+  let plantName = plantData[buttonIndex].common_name;
+
     let name = document.createElement("p");
     name.setAttribute('class', 'card-title');
     name.setAttribute('class', 'plantName');
@@ -195,11 +177,15 @@ const addShelf = () => {
   let newBoxes = document.createElement("div");
   newBoxes.setAttribute('class', 'plantBoxes');
 
+  const shelvesCount = document.getElementById("shelves").children.length;
+
   for(i=0; i<5; i++) {
     let newBox = document.createElement("div");
     newBox.setAttribute('class', 'plantBox');
     newBox.addEventListener("drop", drop);
     newBox.addEventListener("dragover", allowDrop);
+
+    newBox.setAttribute('id', ((shelvesCount * 5) + i));
     plantBoxObjects.push(
       {
         element: newBox, 
@@ -221,31 +207,33 @@ const addShelf = () => {
 const shelfButton = document.getElementById("shelfButton");
 shelfButton.addEventListener("click", addShelf);
 
-let populatePlantBoxObjects = () => {
-  let shelves = document.getElementById("shelves").children
-  for(let i=0; i<shelves.length; i++){
-    let shelf = shelves[i].children[0].children
-    // console.log(shelf);
+// let populatePlantBoxObjects = () => {
+//   let shelves = document.getElementById("shelves").children
+//   for(let i=0; i<shelves.length; i++){
+//     let shelf = shelves[i].children[0].children
+//     // console.log(shelf);
     
-    for(let j=0; j<shelf.length; j++){
-      shelf[j].setAttribute('id', ((i * 5) + j));
-      plantBoxObjects.push(
-        {
-          element: shelf[j], 
-          filled: false
-        }
-      ) 
-    }
-  }
-  // console.log(plantBoxObjects)
-}
+//     for(let j=0; j<shelf.length; j++){
+//       shelf[j].setAttribute('id', ((i * 5) + j));
+//       plantBoxObjects.push(
+//         {
+//           element: shelf[j], 
+//           filled: false
+//         }
+//       ) 
+//     }
+//   }
+//   // console.log(plantBoxObjects)
+// }
 
 
 let onLoad = async () => {
   for(let i=0; i<3; i++){
     addShelf();
   };
-    populatePlantBoxObjects();
+    // populatePlantBoxObjects();
+
+    console.log(plantBoxObjects);
     plantData = await getPlantData();
     // console.log(plantData);
 
