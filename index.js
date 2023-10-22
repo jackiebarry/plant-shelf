@@ -2,13 +2,9 @@
       // Need: store plants in shelves
         //start with plantboxobjs and plants 
 
-
-
       // Need: improve wait time on API calls
       // Want: could add water info
       // Want: could add card flip functionality
-
-
 
 // thoughts: could set up "prettier" in project, and specify for example yes to semicolons
 //           this can be set up to be automatic on save in VSCode
@@ -88,8 +84,6 @@ let getPlantData = async () => {
 const addPlantImage = (event) => {
     const buttonIndex = event.target.id;
 
-  
-
     let index = plantBoxObjects.findIndex( (obj) => !obj.filled )
 
     if (index === -1) {
@@ -124,47 +118,54 @@ const addPlantImage = (event) => {
     let name = document.createElement("p");
     name.setAttribute('class', 'card-title');
     name.setAttribute('class', 'plantName');
-
     name.innerHTML = plantName;
 
     let deleteButton = document.createElement("button");
     deleteButton.setAttribute('class', 'btn btn-danger btn-floating');
     deleteButton.setAttribute('id', index)
-    // console.log('index here', index)
-
     deleteButton.addEventListener('click', deletePlant)
 
-    let buttonIcon = document.createElement("span");
-    buttonIcon.setAttribute('class', 'fas fa-skull fa-2x');
-    deleteButton.appendChild(buttonIcon);
-   
-    // console.log(plantBoxObj);
+    let deleteButtonIcon = document.createElement("span");
+    deleteButtonIcon.setAttribute('class', 'fas fa-skull fa-2x');
+    deleteButton.appendChild(deleteButtonIcon);
+
+
+
+    //   let waterData = plantData[buttonIndex].watering;
+
+    // let waterButton = document.createElement("button");
+    // waterButton.setAttribute('class', 'btn btn-floating btn-info');
+    // waterButton.setAttribute('id', index);
+    // waterButton.addEventListener('mousedown', displayWaterData);
+
+    // let waterButtonIcon = document.createElement("span");
+    // waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
+    // waterButton.appendChild(waterButtonIcon);
 
     imageCard.appendChild(image);
     imageCard.appendChild(name);
     imageCard.appendChild(deleteButton);
+    imageCard.appendChild(waterButton);
 
     plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
-
-    // console.log(plantBoxObj);
 }; 
- 
+
+// const displayWaterData = (event) => {
+//   let eventIndex = event.currentTarget.id
+
+// }
+
 const deletePlant = (event) => {
 let eventIndex = event.currentTarget.id; 
 let plantBoxObj = plantBoxObjects[eventIndex]
 
-//index of plant box objects 
-// console.log(eventIndex);
-// console.log(plantBoxObj);
 
 plantBoxObj.element.children[0].remove();
 
 plantBoxObj.filled = false;
 
 };
-
-
 
 const addShelf = () => {
   let newShelf = document.createElement("div");
@@ -207,26 +208,6 @@ const addShelf = () => {
 const shelfButton = document.getElementById("shelfButton");
 shelfButton.addEventListener("click", addShelf);
 
-// let populatePlantBoxObjects = () => {
-//   let shelves = document.getElementById("shelves").children
-//   for(let i=0; i<shelves.length; i++){
-//     let shelf = shelves[i].children[0].children
-//     // console.log(shelf);
-    
-//     for(let j=0; j<shelf.length; j++){
-//       shelf[j].setAttribute('id', ((i * 5) + j));
-//       plantBoxObjects.push(
-//         {
-//           element: shelf[j], 
-//           filled: false
-//         }
-//       ) 
-//     }
-//   }
-//   // console.log(plantBoxObjects)
-// }
-
-
 let onLoad = async () => {
   for(let i=0; i<3; i++){
     addShelf();
@@ -235,7 +216,7 @@ let onLoad = async () => {
 
     console.log(plantBoxObjects);
     plantData = await getPlantData();
-    // console.log(plantData);
+    console.log(plantData);
 
     // note: might want to add some vertical overflow styling to the ul
     plantData.forEach((plant, plantIndex) => {
@@ -254,6 +235,8 @@ let onLoad = async () => {
 
 
 onLoad();
+
+
 
 searchInputDropdown.addEventListener('input', () => {
   const filter = searchInputDropdown.value.toLowerCase();
