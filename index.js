@@ -17,6 +17,7 @@ const plantOptions = document.getElementById('plantOptions');
 let plantData = []; 
 let dropdownOptions = [];
 let plantBoxObjects = [];
+let storedPlants = [];
 
 function dragStart(event) {
   event.dataTransfer.setData('Text', event.target.id);
@@ -59,14 +60,11 @@ function drop(event) {
 };
 
 
-
-
 let getPlantData = async () => {
     // can change some lets to consts
     const API_KEY = 'sk-hhUC648f17aaee2f71312'
     let plants = [] 
     let localArray = JSON.parse(localStorage.getItem("plants"));
-
         if (localArray && localArray.length) {
         plants = localArray
         } else {
@@ -145,7 +143,7 @@ const addPlantImage = (event) => {
     imageCard.appendChild(image);
     imageCard.appendChild(name);
     imageCard.appendChild(deleteButton);
-    imageCard.appendChild(waterButton);
+    // imageCard.appendChild(waterButton);
 
     plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
@@ -236,6 +234,34 @@ let onLoad = async () => {
 
 onLoad();
 
+const storePlants = () => {
+  let storePlantTarget = document.getElementById(`dragTarget-${Date.now()}`);
+  localStorage.setItem("storedPlants", storePlantTarget);
+};
+
+const accessStoredPlants = () => {
+storedPlants = JSON.parse(localStorage.getItem("storedPlants"));
+};
+
+
+// let getPlantData = async () => {
+//   // can change some lets to consts
+//   const API_KEY = 'sk-hhUC648f17aaee2f71312'
+//   let plants = [] 
+//   let localArray = JSON.parse(localStorage.getItem("plants"));
+//       if (localArray && localArray.length) {
+//       plants = localArray
+//       } else {
+//         for(i=1; i<=101; i++) {
+//               let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
+//               let data = await response.json();
+      
+//               plants = plants.concat(data.data);
+//           };
+//       };
+//   localStorage.setItem("plants", JSON.stringify(plants));
+//   return plants;
+// };
 
 
 searchInputDropdown.addEventListener('input', () => {
@@ -259,3 +285,5 @@ const showOptions = () => {
     el.style.display = 'flex';
   })
 };
+
+storePlants();
