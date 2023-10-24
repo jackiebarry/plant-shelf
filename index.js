@@ -103,7 +103,6 @@ const addPlantImage = (event) => {
 
  console.log(imageCard.id);
 
-
     let plantImage = plantData[buttonIndex].default_image?.thumbnail
 
     let image = document.createElement("img")
@@ -113,7 +112,7 @@ const addPlantImage = (event) => {
     image.setAttribute('draggable', false);
   
   
-  let plantName = plantData[buttonIndex].common_name;
+    let plantName = plantData[buttonIndex].common_name;
 
     let name = document.createElement("p");
     name.setAttribute('class', 'card-title');
@@ -138,6 +137,8 @@ const addPlantImage = (event) => {
       imageCard.appendChild(waterInfo)
       };
 
+//plantBoxObj will need water shown yes / no which will be toggled and then change of icon to droplet-slash to hide water info 
+
     let waterButton = document.createElement("button");
     waterButton.setAttribute('class', 'btn btn-floating btn-info');
     waterButton.setAttribute('id', index);
@@ -146,8 +147,6 @@ const addPlantImage = (event) => {
     let waterButtonIcon = document.createElement("span");
     waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
     waterButton.appendChild(waterButtonIcon);
-
-      
 
     imageCard.appendChild(image);
     imageCard.appendChild(name);

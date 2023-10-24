@@ -1,6 +1,6 @@
 #body {
   background-color:rgb(17, 57, 34);
-  height: 100%;
+  height: 50%;
   height: fit-content;
   /* max-width: 4075px; */
 }
@@ -10,8 +10,9 @@
     background-image: url(images/shiplap-wall.jpg);
     background-position: center;
     border-radius: 10px;
-    height: 75%;
-    max-width: 4075px;
+    height: 50%;
+    /* max-width: 4075px; */
+    max-width: 1075px;
     text-align: center;
   }
 
@@ -22,9 +23,10 @@
 
 #buttons {
   display: flex;
-  padding: 5rem;
+  padding: 1rem;
   justify-content: space-evenly;
-  max-width: 4075px;
+  /* max-width: 4075px; */
+  max-width: 1075px;
   margin: auto;
 }
 
@@ -34,7 +36,7 @@
 
 .plantName {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 2rem;
+  font-size: 1rem;
   color: black;
 }
 
@@ -70,22 +72,23 @@ max-height: 100%;
 
 #navbarDropdownMenuLink {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 5rem;
+  font-size: 2rem;
 }
 
 #addShelf {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 5rem;
+  font-size: 2rem;
   display: flexbox;
 }
 
 .primary-header {
   padding: 5px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 10rem;
+  font-size: 5rem;
   color: #E36710;
   text-align: center;
-  max-width: 4075px;
+  /* max-width: 4075px; */
+  max-width: 1075px;
   margin: auto;
 }
 
