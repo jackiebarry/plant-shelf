@@ -68,7 +68,9 @@ let getPlantData = async () => {
         if (localArray && localArray.length) {
         plants = localArray
         } else {
-          for(i=1; i<=101; i++) {
+          // for(i=1; i<=101; i++) {
+            for(i=1; i<=10; i++) {
+
                 let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
                 let data = await response.json();
         
@@ -235,8 +237,14 @@ let onLoad = async () => {
 onLoad();
 
 const storePlants = () => {
-  let storePlantTarget = document.getElementById(`dragTarget-${Date.now()}`);
-  localStorage.setItem("storedPlants", storePlantTarget);
+  // let storePlantTarget = document.getElementsByClassName("plantBox");
+  let storePlantTarget = document.getElementsByClassName("plantBox");
+
+  localStorage.setItem("storedPlants", storePlantTarget.innerHTML);
+
+  // localStorage.setItem("storedPlants", JSON.stringify(plantBoxObjects.element));
+
+
 };
 
 const accessStoredPlants = () => {
