@@ -129,18 +129,25 @@ const addPlantImage = (event) => {
     deleteButtonIcon.setAttribute('class', 'fas fa-skull fa-2x');
     deleteButton.appendChild(deleteButtonIcon);
 
+    let waterData = plantData[buttonIndex].watering;
 
+    const displayWaterData = () => {
+      let waterInfo = document.createElement("p"); 
+      waterInfo.setAttribute('class', 'water-details');
+      waterInfo.innerHTML = waterData;
+      imageCard.appendChild(waterInfo)
+      };
 
-    //   let waterData = plantData[buttonIndex].watering;
+    let waterButton = document.createElement("button");
+    waterButton.setAttribute('class', 'btn btn-floating btn-info');
+    waterButton.setAttribute('id', index);
+    waterButton.addEventListener('click', displayWaterData);
 
-    // let waterButton = document.createElement("button");
-    // waterButton.setAttribute('class', 'btn btn-floating btn-info');
-    // waterButton.setAttribute('id', index);
-    // waterButton.addEventListener('mousedown', displayWaterData);
+    let waterButtonIcon = document.createElement("span");
+    waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
+    waterButton.appendChild(waterButtonIcon);
 
-    // let waterButtonIcon = document.createElement("span");
-    // waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
-    // waterButton.appendChild(waterButtonIcon);
+      
 
     imageCard.appendChild(image);
     imageCard.appendChild(name);
@@ -151,10 +158,7 @@ const addPlantImage = (event) => {
     plantBoxObj.filled = true;
 }; 
 
-// const displayWaterData = (event) => {
-//   let eventIndex = event.currentTarget.id
 
-// }
 
 const deletePlant = (event) => {
 let eventIndex = event.currentTarget.id; 
