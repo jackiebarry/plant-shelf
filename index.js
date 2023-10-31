@@ -57,6 +57,8 @@ function drop(event) {
 
   plantBoxObj.filled = true;
 
+  storePlants();
+
 };
 
 
@@ -129,32 +131,16 @@ const addPlantImage = (event) => {
     deleteButtonIcon.setAttribute('class', 'fas fa-skull fa-2x');
     deleteButton.appendChild(deleteButtonIcon);
 
-
-
-    //   let waterData = plantData[buttonIndex].watering;
-
-    // let waterButton = document.createElement("button");
-    // waterButton.setAttribute('class', 'btn btn-floating btn-info');
-    // waterButton.setAttribute('id', index);
-    // waterButton.addEventListener('mousedown', displayWaterData);
-
-    // let waterButtonIcon = document.createElement("span");
-    // waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
-    // waterButton.appendChild(waterButtonIcon);
-
     imageCard.appendChild(image);
     imageCard.appendChild(name);
     imageCard.appendChild(deleteButton);
-    // imageCard.appendChild(waterButton);
 
     plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
+
+    console.log(plantBoxObjects);
+    storePlants();
 }; 
-
-// const displayWaterData = (event) => {
-//   let eventIndex = event.currentTarget.id
-
-// }
 
 const deletePlant = (event) => {
 let eventIndex = event.currentTarget.id; 
@@ -164,6 +150,21 @@ let plantBoxObj = plantBoxObjects[eventIndex]
 plantBoxObj.element.children[0].remove();
 
 plantBoxObj.filled = false;
+
+storePlants();
+};
+
+const storePlants = () => {
+
+  localStorage.setItem("storedPlants", JSON.stringify(
+    plantBoxObjects.map((plantBox) => {
+      return {
+        filled: plantBox.filled,
+        element: plantBox.element.outerHTML
+      }
+    })
+  ));
+
 
 };
 
@@ -194,7 +195,6 @@ const addShelf = () => {
       }
     ) 
     newBoxes.appendChild(newBox);
-
   }
 
   newShelf.appendChild(newBoxes);
@@ -203,16 +203,41 @@ const addShelf = () => {
   let shelves = document.getElementById("shelves")
   shelves.appendChild(newShelf);
 
+  // storePlants();
 }
 
 const shelfButton = document.getElementById("shelfButton");
 shelfButton.addEventListener("click", addShelf);
 
 let onLoad = async () => {
-  for(let i=0; i<3; i++){
-    addShelf();
-  };
+
+  let storedPlants = JSON.parse(localStorage.getItem("storedPlants"))
+  if (storedPlants) {
+    storedPlants = storedPlants.map((storedPlant) => {
+    
+      let wrapper = document.createElement('div');
+      wrapper.innerHTML = storedPlant.element;
+      const div = wrapper.firstChild; // do we need to give it eventListeners?
+
+      return {
+        filled: storedPlant.filled,
+        element: div
+      }
+    })
+
+    for(let i=0; i<3; i++){
+      addShelf();
+    };
+
+  plantBoxObjects.push(storedPlants);
+  }
+
+  else {
+    for(let i=0; i<3; i++){
+      addShelf();
+    };
     // populatePlantBoxObjects();
+  }
 
     console.log(plantBoxObjects);
     plantData = await getPlantData();
@@ -236,39 +261,25 @@ let onLoad = async () => {
 
 onLoad();
 
-const storePlants = () => {
-  // let storePlantTarget = document.getElementsByClassName("plantBox");
-  let storePlantTarget = document.getElementsByClassName("plantBox");
-
-  localStorage.setItem("storedPlants", storePlantTarget.innerHTML);
-
-  // localStorage.setItem("storedPlants", JSON.stringify(plantBoxObjects.element));
 
 
-};
+// const accessStoredPlants = () => {
 
-const accessStoredPlants = () => {
-storedPlants = JSON.parse(localStorage.getItem("storedPlants"));
-};
+//   let storedPlants = JSON.parse(localStorage.getItem("storedPlants"))
 
+//   storedPlants = storedPlants.map((storedPlant) => {
+  
+//     let wrapper = document.createElement('div');
+//     wrapper.innerHTML = storedPlant.element;
+//     const div = wrapper.firstChild;
 
-// let getPlantData = async () => {
-//   // can change some lets to consts
-//   const API_KEY = 'sk-hhUC648f17aaee2f71312'
-//   let plants = [] 
-//   let localArray = JSON.parse(localStorage.getItem("plants"));
-//       if (localArray && localArray.length) {
-//       plants = localArray
-//       } else {
-//         for(i=1; i<=101; i++) {
-//               let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
-//               let data = await response.json();
-      
-//               plants = plants.concat(data.data);
-//           };
-//       };
-//   localStorage.setItem("plants", JSON.stringify(plants));
-//   return plants;
+//     return {
+//       filled: storedPlant.filled,
+//       element: div
+//     }
+//   })
+
+//   console.log(storedPlants)
 // };
 
 
@@ -294,4 +305,3 @@ const showOptions = () => {
   })
 };
 
-storePlants();
