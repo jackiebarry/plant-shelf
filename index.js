@@ -24,7 +24,7 @@ function dragStart(event) {
   // console.log(event.currentTarget.parentElement);
 
   let eventIndex = event.currentTarget.parentElement.id
-  let plantBoxObj = plantBoxObjects[eventIndex].innerHTML
+  let plantBoxObj = plantBoxObjects[eventIndex]
 
   console.log(plantBoxObj);
 
@@ -39,8 +39,7 @@ function allowDrop(event) {
 
   console.log(plantBoxObj)
   if (plantBoxObj.filled === false){
-  //this needs an if else statement to handle boxes being filled 
-  // console.log(plantBoxObjects[]);  
+   
   event.preventDefault();}
   else {
     event
@@ -240,12 +239,15 @@ let onLoad = async () => {
       newBoxes.setAttribute('class', 'plantBoxes');
 
       for(j = (i * 5); j<((i * 5) + 5); j++) {
+        // let box = document.createElement("div");
         const box = plantBoxObjects[j].element
-        
-        console.log(box.innerHTML)
+
+        console.log(box)
 
         box.addEventListener("drop", drop);
         box.addEventListener("dragover", allowDrop);
+
+        // box.children[0].children[0].addEventListener("delete", deletePlant)
 
         newBoxes.appendChild(box);
       }
