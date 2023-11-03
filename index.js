@@ -24,7 +24,7 @@ function dragStart(event) {
   // console.log(event.currentTarget.parentElement);
 
   let eventIndex = event.currentTarget.parentElement.id
-  let plantBoxObj = plantBoxObjects[eventIndex]
+  let plantBoxObj = plantBoxObjects[eventIndex].innerHTML
 
   console.log(plantBoxObj);
 
@@ -50,6 +50,7 @@ function allowDrop(event) {
 function drop(event) {
   event.preventDefault();
   const data = event.dataTransfer.getData("Text");
+  
   event.target.appendChild(document.getElementById(data));
 
   let eventIndex = event.currentTarget.id; 
@@ -225,18 +226,42 @@ let onLoad = async () => {
       }
     })
 
-    for(let i=0; i<3; i++){
-      addShelf();
-    };
+    plantBoxObjects = storedPlants;
 
-  plantBoxObjects.push(storedPlants);
+    for (let i=0; i<Math.ceil(storedPlants.length / 5); i++) {
+      let newShelf = document.createElement("div");
+      newShelf.setAttribute('class', 'shelfContainer');
+
+      let shelfImage = document.createElement("img");
+      shelfImage.setAttribute('src', "images/wooden-shelf.png");
+      shelfImage.setAttribute('class', 'shelf');
+  
+      let newBoxes = document.createElement("div");
+      newBoxes.setAttribute('class', 'plantBoxes');
+
+      for(j = (i * 5); j<((i * 5) + 5); j++) {
+        const box = plantBoxObjects[j].element
+        
+        console.log(box.innerHTML)
+
+        box.addEventListener("drop", drop);
+        box.addEventListener("dragover", allowDrop);
+
+        newBoxes.appendChild(box);
+      }
+
+      newShelf.appendChild(newBoxes);
+      newShelf.appendChild(shelfImage);
+
+      let shelves = document.getElementById("shelves");
+      shelves.appendChild(newShelf);
+    }
   }
 
   else {
     for(let i=0; i<3; i++){
       addShelf();
     };
-    // populatePlantBoxObjects();
   }
 
     console.log(plantBoxObjects);
@@ -260,28 +285,6 @@ let onLoad = async () => {
 
 
 onLoad();
-
-
-
-// const accessStoredPlants = () => {
-
-//   let storedPlants = JSON.parse(localStorage.getItem("storedPlants"))
-
-//   storedPlants = storedPlants.map((storedPlant) => {
-  
-//     let wrapper = document.createElement('div');
-//     wrapper.innerHTML = storedPlant.element;
-//     const div = wrapper.firstChild;
-
-//     return {
-//       filled: storedPlant.filled,
-//       element: div
-//     }
-//   })
-
-//   console.log(storedPlants)
-// };
-
 
 searchInputDropdown.addEventListener('input', () => {
   const filter = searchInputDropdown.value.toLowerCase();
