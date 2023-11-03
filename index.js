@@ -17,6 +17,7 @@ const plantOptions = document.getElementById('plantOptions');
 let plantData = []; 
 let dropdownOptions = [];
 let plantBoxObjects = [];
+let storedPlants = [];
 
 function dragStart(event) {
   event.dataTransfer.setData('Text', event.target.id);
@@ -38,8 +39,7 @@ function allowDrop(event) {
 
   console.log(plantBoxObj)
   if (plantBoxObj.filled === false){
-  //this needs an if else statement to handle boxes being filled 
-  // console.log(plantBoxObjects[]);  
+   
   event.preventDefault();}
   else {
     event
@@ -49,6 +49,7 @@ function allowDrop(event) {
 function drop(event) {
   event.preventDefault();
   const data = event.dataTransfer.getData("Text");
+  
   event.target.appendChild(document.getElementById(data));
 
   let eventIndex = event.currentTarget.id; 
@@ -56,9 +57,9 @@ function drop(event) {
 
   plantBoxObj.filled = true;
 
+  storePlants();
+
 };
-
-
 
 
 let getPlantData = async () => {
@@ -66,11 +67,12 @@ let getPlantData = async () => {
     const API_KEY = 'sk-hhUC648f17aaee2f71312'
     let plants = [] 
     let localArray = JSON.parse(localStorage.getItem("plants"));
-
         if (localArray && localArray.length) {
         plants = localArray
         } else {
-          for(i=1; i<=101; i++) {
+          // for(i=1; i<=101; i++) {
+            for(i=1; i<=10; i++) {
+
                 let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
                 let data = await response.json();
         
@@ -151,13 +153,14 @@ const addPlantImage = (event) => {
     imageCard.appendChild(image);
     imageCard.appendChild(name);
     imageCard.appendChild(deleteButton);
-    imageCard.appendChild(waterButton);
 
     plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
+
+
+    console.log(plantBoxObjects);
+    storePlants();
 }; 
-
-
 
 const deletePlant = (event) => {
 let eventIndex = event.currentTarget.id; 
@@ -167,6 +170,21 @@ let plantBoxObj = plantBoxObjects[eventIndex]
 plantBoxObj.element.children[0].remove();
 
 plantBoxObj.filled = false;
+
+storePlants();
+};
+
+const storePlants = () => {
+
+  localStorage.setItem("storedPlants", JSON.stringify(
+    plantBoxObjects.map((plantBox) => {
+      return {
+        filled: plantBox.filled,
+        element: plantBox.element.outerHTML
+      }
+    })
+  ));
+
 
 };
 
@@ -197,7 +215,6 @@ const addShelf = () => {
       }
     ) 
     newBoxes.appendChild(newBox);
-
   }
 
   newShelf.appendChild(newBoxes);
@@ -206,16 +223,68 @@ const addShelf = () => {
   let shelves = document.getElementById("shelves")
   shelves.appendChild(newShelf);
 
+  // storePlants();
 }
 
 const shelfButton = document.getElementById("shelfButton");
 shelfButton.addEventListener("click", addShelf);
 
 let onLoad = async () => {
-  for(let i=0; i<3; i++){
-    addShelf();
-  };
-    // populatePlantBoxObjects();
+
+  let storedPlants = JSON.parse(localStorage.getItem("storedPlants"))
+  if (storedPlants) {
+    storedPlants = storedPlants.map((storedPlant) => {
+    
+      let wrapper = document.createElement('div');
+      wrapper.innerHTML = storedPlant.element;
+      const div = wrapper.firstChild; // do we need to give it eventListeners?
+
+      return {
+        filled: storedPlant.filled,
+        element: div
+      }
+    })
+
+    plantBoxObjects = storedPlants;
+
+    for (let i=0; i<Math.ceil(storedPlants.length / 5); i++) {
+      let newShelf = document.createElement("div");
+      newShelf.setAttribute('class', 'shelfContainer');
+
+      let shelfImage = document.createElement("img");
+      shelfImage.setAttribute('src', "images/wooden-shelf.png");
+      shelfImage.setAttribute('class', 'shelf');
+  
+      let newBoxes = document.createElement("div");
+      newBoxes.setAttribute('class', 'plantBoxes');
+
+      for(j = (i * 5); j<((i * 5) + 5); j++) {
+        // let box = document.createElement("div");
+        const box = plantBoxObjects[j].element
+
+        console.log(box)
+
+        box.addEventListener("drop", drop);
+        box.addEventListener("dragover", allowDrop);
+
+        // box.children[0].children[0].addEventListener("delete", deletePlant)
+
+        newBoxes.appendChild(box);
+      }
+
+      newShelf.appendChild(newBoxes);
+      newShelf.appendChild(shelfImage);
+
+      let shelves = document.getElementById("shelves");
+      shelves.appendChild(newShelf);
+    }
+  }
+
+  else {
+    for(let i=0; i<3; i++){
+      addShelf();
+    };
+  }
 
     console.log(plantBoxObjects);
     plantData = await getPlantData();
@@ -239,8 +308,6 @@ let onLoad = async () => {
 
 onLoad();
 
-
-
 searchInputDropdown.addEventListener('input', () => {
   const filter = searchInputDropdown.value.toLowerCase();
   showOptions();
@@ -262,3 +329,4 @@ const showOptions = () => {
     el.style.display = 'flex';
   })
 };
+
