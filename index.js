@@ -223,7 +223,7 @@ const addShelf = () => {
   let shelves = document.getElementById("shelves")
   shelves.appendChild(newShelf);
 
-  // storePlants();
+  storePlants();
 }
 
 const shelfButton = document.getElementById("shelfButton");
