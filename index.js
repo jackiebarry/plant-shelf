@@ -1,7 +1,4 @@
 
-      // Need: store plants in shelves
-        //start with plantboxobjs and plants 
-
       // Need: improve wait time on API calls
       // Want: could add water info
       // Want: could add card flip functionality
@@ -20,6 +17,7 @@ let plantBoxObjects = [];
 let storedPlants = [];
 
 function dragStart(event) {
+  console.log( event.target.id)
   event.dataTransfer.setData('Text', event.target.id);
   // console.log(event.currentTarget.parentElement);
 
@@ -32,12 +30,12 @@ function dragStart(event) {
 };
 
 function allowDrop(event) {
-  console.log(event.currentTarget.id);
+  // console.log(event.currentTarget.id);
 
   let eventIndex = event.currentTarget.id;
   let plantBoxObj = plantBoxObjects[eventIndex]
 
-  console.log(plantBoxObj)
+  // console.log(plantBoxObj)
   if (plantBoxObj.filled === false){
    
   event.preventDefault();}
@@ -49,13 +47,18 @@ function allowDrop(event) {
 function drop(event) {
   event.preventDefault();
   const data = event.dataTransfer.getData("Text");
-  
+  console.log(data);
   event.target.appendChild(document.getElementById(data));
 
+  console.log('event.currentTarget.id', event.currentTarget.id)
   let eventIndex = event.currentTarget.id; 
   let plantBoxObj = plantBoxObjects[eventIndex]
 
+
   plantBoxObj.filled = true;
+
+  let deleteButton = plantBoxObj.element.children[0].children[2]
+  deleteButton.setAttribute('id', eventIndex);
 
   storePlants();
 
@@ -71,7 +74,7 @@ let getPlantData = async () => {
         plants = localArray
         } else {
           // for(i=1; i<=101; i++) {
-            for(i=1; i<=10; i++) {
+            for(i=60; i<=65; i++) {
 
                 let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
                 let data = await response.json();
@@ -103,7 +106,7 @@ const addPlantImage = (event) => {
     imageCard.setAttribute('id', `dragTarget-${Date.now()}`); 
     imageCard.addEventListener("dragstart", dragStart);
 
- console.log(imageCard.id);
+    console.log(imageCard.id);
 
     let plantImage = plantData[buttonIndex].default_image?.thumbnail
 
@@ -130,25 +133,25 @@ const addPlantImage = (event) => {
     deleteButtonIcon.setAttribute('class', 'fas fa-skull fa-2x');
     deleteButton.appendChild(deleteButtonIcon);
 
-    let waterData = plantData[buttonIndex].watering;
+    // let waterData = plantData[buttonIndex].watering;
 
-    const displayWaterData = () => {
-      let waterInfo = document.createElement("p"); 
-      waterInfo.setAttribute('class', 'water-details');
-      waterInfo.innerHTML = waterData;
-      imageCard.appendChild(waterInfo)
-      };
+    // const displayWaterData = () => {
+    //   let waterInfo = document.createElement("p"); 
+    //   waterInfo.setAttribute('class', 'water-details');
+    //   waterInfo.innerHTML = waterData;
+    //   imageCard.appendChild(waterInfo)
+    //   };
 
 //plantBoxObj will need water shown yes / no which will be toggled and then change of icon to droplet-slash to hide water info 
 
-    let waterButton = document.createElement("button");
-    waterButton.setAttribute('class', 'btn btn-floating btn-info');
-    waterButton.setAttribute('id', index);
-    waterButton.addEventListener('click', displayWaterData);
+    // let waterButton = document.createElement("button");
+    // waterButton.setAttribute('class', 'btn btn-floating btn-info');
+    // waterButton.setAttribute('id', index);
+    // waterButton.addEventListener('click', displayWaterData);
 
-    let waterButtonIcon = document.createElement("span");
-    waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
-    waterButton.appendChild(waterButtonIcon);
+    // let waterButtonIcon = document.createElement("span");
+    // waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
+    // waterButton.appendChild(waterButtonIcon);
 
     imageCard.appendChild(image);
     imageCard.appendChild(name);
@@ -164,6 +167,7 @@ const addPlantImage = (event) => {
 
 const deletePlant = (event) => {
 let eventIndex = event.currentTarget.id; 
+console.log(eventIndex);
 let plantBoxObj = plantBoxObjects[eventIndex]
 
 
@@ -266,8 +270,13 @@ let onLoad = async () => {
 
         box.addEventListener("drop", drop);
         box.addEventListener("dragover", allowDrop);
+        // console.log('box child', box.children[0])
+        if(box.children[0]) {
+        box.children[0].addEventListener("dragstart", dragStart)
+        box.children[0].children[2].addEventListener('click', deletePlant)
 
-        // box.children[0].children[0].addEventListener("delete", deletePlant)
+        }
+
 
         newBoxes.appendChild(box);
       }
