@@ -19,7 +19,6 @@ let storedPlants = [];
 function dragStart(event) {
   console.log( event.target.id)
   event.dataTransfer.setData('Text', event.target.id);
-  // console.log(event.currentTarget.parentElement);
 
   let eventIndex = event.currentTarget.parentElement.id
   let plantBoxObj = plantBoxObjects[eventIndex]
@@ -30,12 +29,10 @@ function dragStart(event) {
 };
 
 function allowDrop(event) {
-  // console.log(event.currentTarget.id);
 
   let eventIndex = event.currentTarget.id;
   let plantBoxObj = plantBoxObjects[eventIndex]
 
-  // console.log(plantBoxObj)
   if (plantBoxObj.filled === false){
    
   event.preventDefault();}
@@ -60,13 +57,15 @@ function drop(event) {
   let deleteButton = plantBoxObj.element.children[0].children[2]
   deleteButton.setAttribute('id', eventIndex);
 
+  let waterButton = plantBoxObj.element.children[0].children[3];
+  waterButton.setAttribute('id', eventIndex);
+
   storePlants();
 
 };
 
 
 let getPlantData = async () => {
-    // can change some lets to consts
     const API_KEY = 'sk-hhUC648f17aaee2f71312'
     let plants = [] 
     let localArray = JSON.parse(localStorage.getItem("plants"));
@@ -74,7 +73,7 @@ let getPlantData = async () => {
         plants = localArray
         } else {
           // for(i=1; i<=101; i++) {
-            for(i=60; i<=65; i++) {
+            for(i=75; i<=80; i++) {
 
                 let response = await fetch(`https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`);
                 let data = await response.json();
@@ -125,12 +124,12 @@ const addPlantImage = (event) => {
     name.innerHTML = plantName;
 
     let deleteButton = document.createElement("button");
-    deleteButton.setAttribute('class', 'btn btn-danger btn-floating');
+    deleteButton.setAttribute('class', 'btn btn-danger btn-floating btn-sm');
     deleteButton.setAttribute('id', index)
     deleteButton.addEventListener('click', deletePlant)
 
     let deleteButtonIcon = document.createElement("span");
-    deleteButtonIcon.setAttribute('class', 'fas fa-skull fa-2x');
+    deleteButtonIcon.setAttribute('class', 'fas fa-skull fa-sm');
     deleteButton.appendChild(deleteButtonIcon);
 
     // let waterData = plantData[buttonIndex].watering;
@@ -141,35 +140,49 @@ const addPlantImage = (event) => {
     //   waterInfo.innerHTML = waterData;
     //   imageCard.appendChild(waterInfo)
     //   };
+    //   console.log("water info here", displayWaterData);
 
-//plantBoxObj will need water shown yes / no which will be toggled and then change of icon to droplet-slash to hide water info 
+// plantBoxObj will need water shown yes / no which will be toggled and then change of icon to droplet-slash to hide water info 
 
-    // let waterButton = document.createElement("button");
-    // waterButton.setAttribute('class', 'btn btn-floating btn-info');
-    // waterButton.setAttribute('id', index);
-    // waterButton.addEventListener('click', displayWaterData);
+    let waterButton = document.createElement("button");
+    waterButton.setAttribute('class', 'btn btn-info btn-floating btn-sm');
+    waterButton.setAttribute('id', index);
+    waterButton.addEventListener('click', displayWaterData);
 
-    // let waterButtonIcon = document.createElement("span");
-    // waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-2x');
-    // waterButton.appendChild(waterButtonIcon);
+    let waterButtonIcon = document.createElement("span");
+    waterButtonIcon.setAttribute('class', 'fas fa-droplet fa-sm');
+    waterButton.appendChild(waterButtonIcon);
 
     imageCard.appendChild(image);
     imageCard.appendChild(name);
     imageCard.appendChild(deleteButton);
+    imageCard.appendChild(waterButton);
 
     plantBoxObj.element.appendChild(imageCard);
     plantBoxObj.filled = true;
-
 
     console.log(plantBoxObjects);
     storePlants();
 }; 
 
+
+const displayWaterData = (event) => {
+  let buttonIndex = event.currentTarget.id;
+  let waterData = plantData[buttonIndex].watering;
+  let plantBoxObj = plantBoxObjects[buttonIndex];
+  let waterInfo = document.createElement("p"); 
+  waterInfo.setAttribute('class', 'water-details');
+  waterInfo.innerHTML = waterData;
+
+  let imageCard = plantBoxObj.element.children[0]
+
+  imageCard.appendChild(waterInfo);
+  };
+
 const deletePlant = (event) => {
 let eventIndex = event.currentTarget.id; 
 console.log(eventIndex);
 let plantBoxObj = plantBoxObjects[eventIndex]
-
 
 plantBoxObj.element.children[0].remove();
 
@@ -241,7 +254,7 @@ let onLoad = async () => {
     
       let wrapper = document.createElement('div');
       wrapper.innerHTML = storedPlant.element;
-      const div = wrapper.firstChild; // do we need to give it eventListeners?
+      const div = wrapper.firstChild; 
 
       return {
         filled: storedPlant.filled,
@@ -263,20 +276,18 @@ let onLoad = async () => {
       newBoxes.setAttribute('class', 'plantBoxes');
 
       for(j = (i * 5); j<((i * 5) + 5); j++) {
-        // let box = document.createElement("div");
         const box = plantBoxObjects[j].element
 
         console.log(box)
 
         box.addEventListener("drop", drop);
         box.addEventListener("dragover", allowDrop);
-        // console.log('box child', box.children[0])
+
         if(box.children[0]) {
-        box.children[0].addEventListener("dragstart", dragStart)
-        box.children[0].children[2].addEventListener('click', deletePlant)
-
+        box.children[0].addEventListener("dragstart", dragStart);
+        box.children[0].children[2].addEventListener('click', deletePlant);
+        box.children[0].children[3].addEventListener('click', displayWaterData);
         }
-
 
         newBoxes.appendChild(box);
       }
@@ -313,7 +324,6 @@ let onLoad = async () => {
     })
     dropdownOptions = document.querySelectorAll('.dropdown-item');
 };
-
 
 onLoad();
 

@@ -30,6 +30,11 @@
   margin: auto;
 }
 
+.btn {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .shelfContainer {
   padding-top: 150px;
 }
