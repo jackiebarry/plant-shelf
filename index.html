@@ -1,74 +1,88 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Virtual Plant Shelf</title>
 
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" integrity="sha512-Z1+R2OfJ0a9kp/21IZNhJ5YEOCVRQh/nYktwmhkPF0FoDQH0Ov2wOOwDrlylzJckX6wSJ5VivCURL+JFfLf/xA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js" integrity="sha512-0RxGTiFXp36+bSbJM+/QSTl1LDQ4pHdDZ8Ua9ZXl454qKSsYu228AOLHYfzx/rm4Dm6I+176ETRF55DpvrHTgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
     <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet" />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+      integrity="sha512-Z1+R2OfJ0a9kp/21IZNhJ5YEOCVRQh/nYktwmhkPF0FoDQH0Ov2wOOwDrlylzJckX6wSJ5VivCURL+JFfLf/xA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-</head>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+      integrity="sha512-0RxGTiFXp36+bSbJM+/QSTl1LDQ4pHdDZ8Ua9ZXl454qKSsYu228AOLHYfzx/rm4Dm6I+176ETRF55DpvrHTgw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
-<body id="body">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-        <div id="header">
-            <h1 class="primary-header">Say Aloe To My Little Friends</h1>
-    
-        <div id="buttons">
+  <body id="body">
+    <div class="loading-wrapper" id="loading-wrapper">
+      <img
+        src="https://miro.medium.com/v2/resize:fit:1358/1*EAUw6VybtalCwakID4eNsQ.gif"
+        class="loading"
+      />
+    </div>
+    <div id="header">
+      <h1 class="primary-header">Say Aloe To My Little Friends</h1>
 
-            <div id="searchDropdown">
-    
-                <a
-                    class="dropdown-toggle hidden-arrow btn btn-primary bg-warning"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                >
-                    Add your Plant
-                </a>
-                
-                <ul id="plantOptions" class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
-                    <li>
-                        <div class="input-group mt-2 mx-2">
-                        <div class="form-outline w-auto">
-                            <input type="search" id="search-input-dropdown" class="form-control-dropdown" />
-                            <label class="form-label" for="search-input-dropdown">Search</label>
-                        </div>
-                        </div>
-                    </li>
-                    <li><hr class="dropdown-divider" /></li>
-                </ul>
-                
-            </div>
+      <div id="buttons">
+        <div id="searchDropdown">
+          <a
+            class="dropdown-toggle hidden-arrow btn btn-primary bg-warning"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Add your Plant
+          </a>
 
-            <div id="shelfButton">
-                <button class="btn btn-primary bg-warning" id="addShelf">
-                    Add A Shelf
-                </button>
-            </div>
-
+          <ul
+            id="plantOptions"
+            class="dropdown-menu dropdown-menu-left"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <div class="input-group mt-2 mx-2">
+                <div class="form-outline w-auto">
+                  <input
+                    type="search"
+                    id="search-input-dropdown"
+                    class="form-control-dropdown"
+                  />
+                  <label class="form-label" for="search-input-dropdown"
+                    >Search</label
+                  >
+                </div>
+              </div>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+          </ul>
         </div>
-  
+
+        <div id="shelfButton">
+          <button class="btn btn-primary bg-warning" id="addShelf">
+            Add A Shelf
+          </button>
+        </div>
+      </div>
     </div>
     <div id="backgroundImage">
-
-        <div class="shelves" id="shelves">
-           
-        </div> 
+      <div class="shelves" id="shelves"></div>
     </div>
-  
 
-<script src="index.js"></script>
-
-</body>
-
+    <script src="index.js"></script>
+  </body>
 </html>

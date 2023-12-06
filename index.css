@@ -1,20 +1,21 @@
 #body {
-  background-color:rgb(17, 57, 34);
+  background-color: rgb(17, 57, 34);
   height: 50%;
   height: fit-content;
   /* max-width: 4075px; */
 }
 
 #backgroundImage {
-    margin: auto;
-    background-image: url(images/shiplap-wall.jpg);
-    background-position: center;
-    border-radius: 10px;
-    height: 50%;
-    /* max-width: 4075px; */
-    max-width: 1075px;
-    text-align: center;
-  }
+  margin: auto;
+  background-image: url(images/shiplap-wall.jpg);
+  background-position: center;
+  border-radius: 10px;
+  height: 50%;
+  /* max-width: 4075px; */
+  max-width: 1075px;
+  text-align: center;
+  display: none;
+}
 
 .imageCard {
   margin: 10px;
@@ -25,6 +26,7 @@
   display: flex;
   padding: 1rem;
   justify-content: space-evenly;
+  align-items: center;
   /* max-width: 4075px; */
   max-width: 1075px;
   margin: auto;
@@ -39,23 +41,24 @@
   padding-top: 150px;
 }
 
-.plantName {
-  font-family: 'Courier New', Courier, monospace;
+.card-title {
+  font-family: "Courier New", Courier, monospace;
   font-size: 1rem;
   color: black;
+  overflow: scroll;
 }
 
 .plantBox {
   border-style: dashed;
-  border-color:black;
+  border-color: black;
   margin: 5px;
   width: 15%;
   aspect-ratio: 1/1;
 }
 
 .plantImage {
-max-width: 100%;
-max-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .plantBoxes {
@@ -71,29 +74,47 @@ max-height: 100%;
 }
 
 #searchDropdown {
-  padding: 5px;
-  display: flexbox;
+  display: flex;
 }
 
 #navbarDropdownMenuLink {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 2rem;
 }
 
+#plantOptions {
+  height: 20rem;
+  overflow: auto;
+}
 #addShelf {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 2rem;
-  display: flexbox;
+  display: flex;
 }
 
 .primary-header {
   padding: 5px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 5rem;
-  color: #E36710;
+  color: #e36710;
   text-align: center;
   /* max-width: 4075px; */
   max-width: 1075px;
   margin: auto;
 }
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loading-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  mix-blend-mode: multiply;
+}
