@@ -1,3 +1,5 @@
+//add click confrim on drag so it's clear when you have it clicked 
+
 
 const plantButton = document.getElementById("navbarDropdownMenuLink");
 const searchInputDropdown = document.getElementById("search-input-dropdown");
