@@ -1,7 +1,9 @@
 ### plant-shelf
 a shelf - for plants - obvs
 
-The purpose of this project was to create an online storage solution for my house plants and quickly access their watering requirements!! It evolved over the course of the development but overall I'm pretty happy with how it turned out! 
+This is a Vanilla Javascrip, HTML, and CSS project for Module 1 of the [Get Coding Program](https://www.getcoding.ca/).  The purpose of this project was to create an online storage solution for my house plants and quickly access their watering requirements!! It evolved over the course of the development but overall I'm pretty happy with how it turned out! 
+
+The site can be found [here](https://jackiebarry.github.io/plant-shelf/)
 
 On first site visit an adorable gif loops while the plant options are being pulled from the API and stored in localstorage - once that process is complete plants can be added with the handy dandy 'add your plant' button! On revisit the gif loop will be much shorter as the site populates your shelves with your plants! The list can be searched for your desired plant. The options are relatively limited with the free API but their pro list is super comprehensive and amazing - but I was too cheap to spring for that! 
 
