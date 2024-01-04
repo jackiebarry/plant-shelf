@@ -50,14 +50,14 @@ function drop(event) {
 }
 
 let getPlantData = async () => {
-  const API_KEY = "sk-hhUC648f17aaee2f71312";
+  const API_KEY = "sk-h9eC6595f670382e53641";
   let plants = [];
   let localArray = JSON.parse(localStorage.getItem("plants"));
-  if (localArray && localArray.length) {
+  if (localArray && localArray.length && !localArray.find((item) => !item)) {
     plants = localArray;
   } else {
-    // for(i=1; i<=101; i++) {
-    for (i = 75; i <= 90; i++) {
+    // for(i=1; i<=101; i++) { 
+    for (i = 78; i <= 80; i++) {
       let response = await fetch(
         `https://perenual.com/api/species-list?page=${i}&key=${API_KEY}`
       );
