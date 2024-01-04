@@ -50,7 +50,7 @@ function drop(event) {
 }
 
 let getPlantData = async () => {
-  const API_KEY = "sk-h9eC6595f670382e53641";
+  const API_KEY = "sk-9ncx6595fabbd8c463642";
   let plants = [];
   let localArray = JSON.parse(localStorage.getItem("plants"));
   if (localArray && localArray.length && !localArray.find((item) => !item)) {
